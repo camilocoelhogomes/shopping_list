@@ -1,34 +1,40 @@
-import { Entity, Column, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  CreateDateColumn,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-@Entity({ name: 'user'})
+@Entity({ name: 'user' })
 export class UserEntity {
-    @Column({ type: 'varchar', length: 300 })
-    username: string;
+  @Column({ type: 'varchar', length: 300 })
+  username: string;
 
-    @Column({ type: 'varchar', length: 300 })
-    email: string;
+  @Column({ type: 'varchar', length: 300 })
+  email: string;
 
-    @Column({ type: 'varchar', length: 300 })
-    password: string;
+  @Column({ type: 'varchar', length: 300 })
+  password: string;
 
-    @PrimaryGeneratedColumn('increment')
-    id: number;
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
-    @Column({ type: 'boolean', default: true })
-    isActive: boolean;
+  @Column({ type: 'boolean', default: true })
+  isActive: boolean;
 
-    @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
-    createDateTime: Date;
+  @CreateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  createDateTime: Date;
 
-    @Column({ type: 'varchar', length: 300 })
-    createdBy: string;
+  @Column({ type: 'varchar', length: 300 })
+  createdBy: string;
 
-    @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
-    lastChangedDateTime: Date;
+  @UpdateDateColumn({ type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  lastChangedDateTime: Date;
 
-    @Column({ type: 'varchar', length: 300 })
-    lastChangedBy: string;
+  @Column({ type: 'varchar', length: 300 })
+  lastChangedBy: string;
 
-    @Column({ type: 'varchar', length: 300, nullable: true })
-    internalComment: string | null;
+  @Column({ type: 'varchar', length: 300, nullable: true })
+  internalComment: string | null;
 }
