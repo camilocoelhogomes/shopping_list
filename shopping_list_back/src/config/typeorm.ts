@@ -19,3 +19,11 @@ const config = {
 
 export default registerAs('typeorm', () => config)
 export const connectionSource = new DataSource(config as DataSourceOptions);
+export const databaseProviders = [
+    {
+      provide: 'DATA_SOURCE',
+      useFactory: async () => {
+        return connectionSource.initialize();
+      },
+    },
+  ];

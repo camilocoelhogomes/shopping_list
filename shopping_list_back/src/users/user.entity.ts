@@ -1,7 +1,7 @@
 import { Entity, Column, CreateDateColumn, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity({ name: 'auth' })
-export class AuthEntity {
+@Entity({ name: 'user'})
+export class UserEntity {
     @Column({ type: 'varchar', length: 300 })
     username: string;
 
