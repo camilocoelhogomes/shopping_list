@@ -13,7 +13,7 @@ const config = {
   password: `admin`,
   database: `db`,
   entities: [UserEntity],
-  migrations: ['src/migrations/*{.ts,.js}'],
+  migrations: ['migrations/*{.ts,.js}'],
   //autoLoadEntities: true,
   synchronize: false,
 };
