@@ -4,6 +4,7 @@ const { RunScriptWebpackPlugin } = require('run-script-webpack-plugin');
 module.exports = function (options, webpack) {
   return {
     ...options,
+    devtool: 'source-map',
     entry: ['webpack/hot/poll?100', options.entry],
     externals: [
       nodeExternals({
@@ -16,7 +17,7 @@ module.exports = function (options, webpack) {
       new webpack.WatchIgnorePlugin({
         paths: [/\.js$/, /\.d\.ts$/],
       }),
-      new RunScriptWebpackPlugin({ name: options.output.filename, autoRestart: false }),
+      new RunScriptWebpackPlugin({ name: options.output.filename, autoRestart: false, nodeArgs: ['--inspect=0.0.0.0:9229'] }),
     ],
   };
 };
