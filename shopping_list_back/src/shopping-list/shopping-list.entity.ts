@@ -1,26 +1,23 @@
-import { ShoppingListEntity } from '../shopping-list/shopping-list.entity';
+import { UserEntity } from '../users/user.entity';
 import {
-  Entity,
   Column,
   CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  ManyToOne,
 } from 'typeorm';
 
-@Entity({ name: 'user' })
-export class UserEntity {
-  @Column({ type: 'varchar', length: 300 })
-  username: string;
-
-  @Column({ type: 'varchar', length: 300 })
-  email: string;
-
-  @Column({ type: 'varchar', length: 300 })
-  password: string;
-
+@Entity({ name: 'shopping_list' })
+export class ShoppingListEntity {
   @PrimaryGeneratedColumn('increment')
-  id: number;
+  shoppingListId: number;
+
+  @Column({ type: 'varchar', length: 300 })
+  name: string;
+  @Column({ type: 'varchar', length: 300 })
+  description: string;
 
   @Column({ type: 'boolean', default: true })
   isActive: boolean;
@@ -40,6 +37,7 @@ export class UserEntity {
   @Column({ type: 'varchar', length: 300, nullable: true })
   internalComment: string | null;
 
-  @ManyToOne(() => ShoppingListEntity, (shoppingList) => shoppingList.owner)
-  shoppingLists: ShoppingListEntity[];
+  @ManyToOne(() => UserEntity)
+  @JoinColumn({ name: 'ownerId' })
+  owner: UserEntity;
 }

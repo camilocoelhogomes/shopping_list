@@ -1,6 +1,8 @@
 import { registerAs } from '@nestjs/config';
 import { config as dotenvConfig } from 'dotenv';
-import { UserEntity } from 'src/users/user.entity';
+import { ShoppingListEntity } from '../shopping-list/shopping-list.entity';
+import { UserEntity } from '../users/user.entity';
+
 import { DataSource, DataSourceOptions } from 'typeorm';
 
 dotenvConfig({ path: '.env' });
@@ -12,7 +14,7 @@ const config = {
   username: `admin`,
   password: `admin`,
   database: `db`,
-  entities: [UserEntity],
+  entities: [UserEntity, ShoppingListEntity],
   migrations: ['migrations/*{.ts,.js}'],
   //autoLoadEntities: true,
   synchronize: false,
