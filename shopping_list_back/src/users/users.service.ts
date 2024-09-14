@@ -6,15 +6,17 @@ import { UserEntity } from './user.entity';
 
 @Injectable()
 export class UsersService {
+  constructor(
+    @Inject('USER_REPOSITORY')
+    private readonly userRepository: Repository<UserEntity>,
+  ) {}
 
-  constructor(@Inject("USER_REPOSITORY") private readonly userRepository: Repository<UserEntity>){}
-
-  async create(createUserDto: CreateUserDto):Promise<void> {
+  async create(createUserDto: CreateUserDto): Promise<void> {
     try {
       const newUser = new UserEntity();
       newUser.email = createUserDto.email;
       newUser.password = createUserDto.password;
-      newUser.username = createUserDto.name; 
+      newUser.username = createUserDto.name;
       newUser.createdBy = createUserDto.email;
       newUser.lastChangedBy = createUserDto.email;
       await this.userRepository.save(newUser);

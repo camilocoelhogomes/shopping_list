@@ -6,6 +6,6 @@ export class AuthService {
   constructor(private usersService: UsersService) {}
 
   async validateUser(userEmail: string, pass: string): Promise<any> {
-    return null
+    return null;
   }
 }
