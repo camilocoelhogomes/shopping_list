@@ -1,6 +1,6 @@
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { Repository } from 'typeorm';
+import { Equal, Repository } from 'typeorm';
 import { UserEntity } from './user.entity';
 import * as bcrypt from 'bcrypt';
 
@@ -30,6 +30,9 @@ export class UsersService {
   }
 
   async findByEmail(email: string): Promise<UserEntity> {
-    return await this.userRepository.findOne({ where: { email } });
+    return await this.userRepository.findOneBy({
+      email: Equal(email),
+      isActive: Equal(true),
+    });
   }
 }
