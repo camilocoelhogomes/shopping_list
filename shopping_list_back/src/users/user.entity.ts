@@ -5,7 +5,7 @@ import {
   CreateDateColumn,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
-  ManyToOne,
+  OneToMany,
 } from 'typeorm';
 
 @Entity({ name: 'user' })
@@ -40,6 +40,6 @@ export class UserEntity {
   @Column({ type: 'varchar', length: 300, nullable: true })
   internalComment: string | null;
 
-  @ManyToOne(() => ShoppingListEntity, (shoppingList) => shoppingList.owner)
+  @OneToMany(() => ShoppingListEntity, (shoppingList) => shoppingList.owner)
   shoppingLists: ShoppingListEntity[];
 }
