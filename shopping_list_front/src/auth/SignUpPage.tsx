@@ -3,6 +3,7 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonItem
 
 const SignUpPage: React.FC = () => {
     const [email, setEmail] = useState('');
+    const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
@@ -24,6 +25,13 @@ const SignUpPage: React.FC = () => {
                 </IonToolbar>
             </IonHeader>
             <IonContent className="ion-padding">
+                <IonItem>
+                    <IonLabel position="floating">Username</IonLabel>
+                    <IonInput 
+                        value={userName} 
+                        onIonChange={e => setUserName(e.detail.value!)} 
+                    />
+                </IonItem>
                 <IonItem>
                     <IonLabel position="floating">Email</IonLabel>
                     <IonInput 
