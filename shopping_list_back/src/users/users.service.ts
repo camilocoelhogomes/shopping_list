@@ -15,7 +15,7 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto): Promise<void> {
     try {
-      this.log.log(`Creating user ${JSON.stringify(createUserDto)}`);
+      this.log.log(`Creating user ${createUserDto.email}`);
       if (await this.findByEmail(createUserDto.email)) {
         throw new ConflictException('User already exists');
       }
@@ -26,8 +26,9 @@ export class UsersService {
       newUser.createdBy = createUserDto.email;
       newUser.lastChangedBy = createUserDto.email;
       await this.userRepository.save(newUser);
+      this.log.log(`User created successfully`);
     } catch (error) {
-      console.error(error.message);
+      this.log.error(error.message);
       throw error;
     }
   }
