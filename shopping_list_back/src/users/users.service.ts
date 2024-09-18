@@ -1,4 +1,4 @@
-import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable, Logger } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { Equal, Repository } from 'typeorm';
 import { UserEntity } from './user.entity';
@@ -6,6 +6,8 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
+  private readonly log = new Logger(UsersService.name);
+
   constructor(
     @Inject('USER_REPOSITORY')
     private readonly userRepository: Repository<UserEntity>,
@@ -13,6 +15,7 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto): Promise<void> {
     try {
+      this.log.log(`Creating user ${JSON.stringify(createUserDto)}`);
       if (await this.findByEmail(createUserDto.email)) {
         throw new ConflictException('User already exists');
       }
