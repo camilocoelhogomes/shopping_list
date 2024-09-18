@@ -9,13 +9,13 @@ dotenvConfig({ path: '.env' });
 
 const config = {
   type: 'postgres',
-  host: `localhost`,
+  host: `db`,
   port: `5432`,
   username: `admin`,
   password: `admin`,
   database: `db`,
   entities: [UserEntity, ShoppingListEntity],
-  migrations: ['migrations/*{.ts,.js}'],
+  //migrations: ['migrations/*{.ts,.js}'],
   //autoLoadEntities: true,
   synchronize: false,
 };
@@ -26,7 +26,12 @@ export const databaseProviders = [
   {
     provide: 'DATA_SOURCE',
     useFactory: async () => {
-      return connectionSource.initialize();
+      try {
+        return connectionSource.initialize();
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
     },
   },
 ];
