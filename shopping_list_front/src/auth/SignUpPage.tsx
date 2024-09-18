@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonItem, IonLabel, IonButton } from '@ionic/react';
+import api from '../service/api';
 
 const SignUpPage: React.FC = () => {
     const [email, setEmail] = useState('');
@@ -8,13 +9,7 @@ const SignUpPage: React.FC = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleSignUp = () => {
-        if (password !== confirmPassword) {
-            alert("Passwords do not match!");
-            return;
-        }
-        // Handle sign up logic here
-        console.log('Email:', email);
-        console.log('Password:', password);
+        api.signUp({email, username: userName, password, confirmPassword});
     };
 
     return (
