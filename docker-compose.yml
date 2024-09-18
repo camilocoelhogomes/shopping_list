@@ -4,6 +4,17 @@ volumes:
   postgres_data:
 
 services:
+  app: 
+    build: 
+      context: ./shopping_list_back
+      dockerfile: ./dockerfile
+    hostname: app
+    restart: always
+    ports:
+      - 3001:3001
+    depends_on:
+      - db
+
   db:
     image: postgres:latest
     hostname: db
