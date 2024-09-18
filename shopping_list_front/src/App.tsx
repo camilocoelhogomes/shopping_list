@@ -33,6 +33,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import SignUpPage from './auth/SignUpPage';
 
 setupIonicReact();
 
@@ -43,6 +44,9 @@ const App: React.FC = () => {
         <IonSplitPane contentId="main">
           <Menu />
           <IonRouterOutlet id="main">
+            <Route path="/signup" exact={true}>
+              <SignUpPage />
+            </Route>
             <Route path="/" exact={true}>
               <Redirect to="/folder/Inbox" />
             </Route>
