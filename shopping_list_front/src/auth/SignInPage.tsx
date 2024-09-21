@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonInput, IonItem, IonLabel, IonButton } from '@ionic/react';
-import api from '../service/api';
+import api from '../service/AuthService';
 
 const SignInPage: React.FC = () => {
     const [email, setEmail] = useState('');
