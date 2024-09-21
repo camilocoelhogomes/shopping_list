@@ -11,7 +11,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  async validateUser(email: string, pass: string): Promise<UserEntity> {
+  async validateUser(email: string, pass: string): Promise<string> {
     const user = await this.userService.findByEmail(email);
     if (!user) {
       throw new Error('User not found');
@@ -20,7 +20,7 @@ export class AuthService {
     if (!passwordResult) {
       throw new Error('Password is incorrect');
     }
-    return user;
+    return this.generateToken(user);
   }
 
   async generateToken(user: UserEntity): Promise<string> {

@@ -34,6 +34,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 import SignUpPage from './auth/SignUpPage';
+import SignInPage from './auth/SignInPage';
 
 setupIonicReact();
 
@@ -47,8 +48,11 @@ const App: React.FC = () => {
             <Route path="/signup" exact={true}>
               <SignUpPage />
             </Route>
+            <Route path="/signin" exact={true}>
+              <SignInPage />
+            </Route>
             <Route path="/" exact={true}>
-              <Redirect to="/folder/Inbox" />
+              <Redirect to="/signin" />
             </Route>
             <Route path="/folder/:name" exact={true}>
               <Page />
