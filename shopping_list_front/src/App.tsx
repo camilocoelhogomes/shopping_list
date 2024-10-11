@@ -35,6 +35,7 @@ import '@ionic/react/css/palettes/dark.system.css';
 import './theme/variables.css';
 import SignUpPage from './auth/SignUpPage';
 import SignInPage from './auth/SignInPage';
+import { ShoppingListPage } from './shopping_list/ShoppingListPage';
 
 setupIonicReact();
 
@@ -45,6 +46,9 @@ const App: React.FC = () => {
         <IonSplitPane contentId="main">
           <Menu />
           <IonRouterOutlet id="main">
+            <Route path="/shopping-list" exact={true}>
+              <ShoppingListPage />
+            </Route>
             <Route path="/signup" exact={true}>
               <SignUpPage />
             </Route>
@@ -52,7 +56,7 @@ const App: React.FC = () => {
               <SignInPage />
             </Route>
             <Route path="/" exact={true}>
-              <Redirect to="/signin" />
+              <Redirect to="/shopping-list" />
             </Route>
             <Route path="/folder/:name" exact={true}>
               <Page />
