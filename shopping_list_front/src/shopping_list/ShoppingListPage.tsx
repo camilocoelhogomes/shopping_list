@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonInput, IonButton, IonCheckbox, IonIcon, IonText } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonInput, IonButton, IonCheckbox, IonIcon, IonText, IonFabButton } from '@ionic/react';
 import ShoppingListCustomComponent from './ShoppingListCustomComponent';
-import { bagCheck, trash } from 'ionicons/icons';
+import { bagCheck, camera, trash } from 'ionicons/icons';
+import { usePhotoGallery } from './ProductPhotoComponent';
 
 interface ShoppingItem {
   name: string;
@@ -12,7 +13,7 @@ interface ShoppingItem {
 export const ShoppingListPage: React.FC = () => {
   const [items, setItems] = useState<ShoppingItem[]>([]);
   const [newItem, setNewItem] = useState<ShoppingItem>({ name: '', quantity: 1, isOkToBuy: false });
-
+  const { takePhoto } = usePhotoGallery();
   const addItem = () => {
     setItems([...items, newItem]);
     setNewItem({ name: '', quantity: 1, isOkToBuy: false });
@@ -42,6 +43,12 @@ export const ShoppingListPage: React.FC = () => {
             color="success"
             onClick={addItem}>
             <IonIcon slot='icon-only' icon={bagCheck} />
+          </IonButton>
+          <IonButton
+            color="primary"
+            onClick={() => takePhoto()}
+          >
+            <IonIcon icon={camera} />
           </IonButton>
         </IonItem>
         <IonList>
