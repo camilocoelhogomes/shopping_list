@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonInput, IonButton, IonCheckbox } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem, IonLabel, IonInput, IonButton, IonCheckbox, IonIcon, IonText } from '@ionic/react';
 import ShoppingListCustomComponent from './ShoppingListCustomComponent';
+import { bagCheck, trash } from 'ionicons/icons';
 
 interface ShoppingItem {
   name: string;
@@ -26,30 +27,23 @@ export const ShoppingListPage: React.FC = () => {
       </IonHeader>
       <IonContent>
         <IonItem>
-          <IonLabel position="floating">Product Name</IonLabel>
           <IonInput
             value={newItem.name}
             onIonChange={e => setNewItem({ ...newItem, name: e.target.value?.toString() ?? '' })}
+            placeholder='Nome do Produto'
           />
-
-        </IonItem>
-        <IonItem>
-          <IonLabel position="floating">Quantity</IonLabel>
           <IonInput
-            type="number"
-            value={newItem.quantity}
-            onIonChange={e => setNewItem({ ...newItem, quantity: parseInt(e.target.value?.toString() ?? '0') })}
+            value={newItem.quantity ?? 1}
+            onIonChange={e => setNewItem({ ...newItem, quantity: Number(e.target.value ?? '0') })}
+            placeholder='Quantidade'
           />
+          <IonButton
+            expand="full"
+            color="success"
+            onClick={addItem}>
+            <IonIcon slot='icon-only' icon={bagCheck} />
+          </IonButton>
         </IonItem>
-        <IonItem>
-          <IonLabel>Ok to Buy</IonLabel>
-          <IonCheckbox
-            checked={newItem.isOkToBuy}
-            onIonChange={e => setNewItem({ ...newItem, isOkToBuy: e.detail.checked })}
-          />
-        </IonItem>
-        <IonButton expand="full" onClick={addItem}>Add Item</IonButton>
-
         <IonList>
           {items.map((item, index) => (
             ShoppingListCustomComponent({ index, item, items, setItems })
