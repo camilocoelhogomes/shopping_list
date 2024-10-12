@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "ionic serve",
+    "dev:local": "vite --host=localhost --port=8100 --mode dev",
     "build": "tsc && vite build && cp ./src/_redirects ./www",
     "build:dev": "npm i && npm run build",
     "preview": "vite preview",
@@ -25,6 +26,7 @@
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.7.7",
+    "firebase": "^10.14.1",
     "ionicons": "^7.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
