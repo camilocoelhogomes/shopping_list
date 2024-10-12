@@ -1,5 +1,6 @@
 import React from 'react';
-import { IonItem, IonCheckbox, IonButton, IonLabel } from '@ionic/react';
+import { IonItem, IonCheckbox, IonButton, IonLabel, IonIcon, IonText } from '@ionic/react';
+import { trash } from 'ionicons/icons';
 
 interface ShoppingListCustomComponentProps {
   index: number;
@@ -9,6 +10,8 @@ interface ShoppingListCustomComponentProps {
 }
 
 const ShoppingListCustomComponent: React.FC<ShoppingListCustomComponentProps> = ({ index, item, items, setItems }) => {
+
+
   return (
     <IonItem
       key={index}
@@ -19,15 +22,17 @@ const ShoppingListCustomComponent: React.FC<ShoppingListCustomComponentProps> = 
         setItems(updatedItems);
       }}
     >
-      <IonCheckbox
-        checked={item.isOkToBuy}
-        onIonChange={e => {
-          const updatedItems = [...items];
-          updatedItems[index].isOkToBuy = e.detail.checked;
-          setItems(updatedItems);
-        }}
-        slot="start"
-      />
+
+      <IonLabel
+        style={{ textDecoration: item.isOkToBuy ? 'line-through' : 'none', flex: '1' }}
+      >
+        {item.name}
+      </IonLabel>
+      <IonText
+        style={{ width: 'auto', marginRight: '8px' }}
+      >
+        {item.quantity}
+      </IonText>
       <IonButton
         color="danger"
         onClick={(e) => {
@@ -35,12 +40,10 @@ const ShoppingListCustomComponent: React.FC<ShoppingListCustomComponentProps> = 
           const updatedItems = items.filter((_, i) => i !== index);
           setItems(updatedItems);
         }}
+        slot='end'
       >
-        Delete
+        <IonIcon slot='icon-only' icon={trash} />
       </IonButton>
-      <IonLabel>
-        {item.name} - {item.quantity} {item.isOkToBuy ? '(Bought)' : '(Not bought)'}
-      </IonLabel>
     </IonItem>
   );
 };

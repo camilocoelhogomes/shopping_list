@@ -25,11 +25,6 @@ export const ShoppingListPage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent>
-        <IonList>
-          {items.map((item, index) => (
-            ShoppingListCustomComponent({ index, item, items, setItems })
-          ))}
-        </IonList>
         <IonItem>
           <IonLabel position="floating">Product Name</IonLabel>
           <IonInput
@@ -53,6 +48,12 @@ export const ShoppingListPage: React.FC = () => {
           />
         </IonItem>
         <IonButton expand="full" onClick={addItem}>Add Item</IonButton>
+
+        <IonList>
+          {items.map((item, index) => (
+            ShoppingListCustomComponent({ index, item, items, setItems })
+          ))}
+        </IonList>
       </IonContent>
     </IonPage>
   );
