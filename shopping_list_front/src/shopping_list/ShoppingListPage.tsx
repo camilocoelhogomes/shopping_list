@@ -31,6 +31,7 @@ export const ShoppingListPage: React.FC = () => {
             value={newItem.name}
             onIonChange={e => setNewItem({ ...newItem, name: e.target.value?.toString() ?? '' })}
           />
+
         </IonItem>
         <IonItem>
           <IonLabel position="floating">Quantity</IonLabel>
