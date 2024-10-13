@@ -14,6 +14,8 @@ export class FireStorageService {
       const sRef = ref(this.storage, `images/t${productName}.jpg`);
       const result = await uploadString(sRef, image, 'data_url');
       console.log(result)
+
+
       return result.ref.fullPath;
     } catch (error) {
       console.error(error);

@@ -34,6 +34,6 @@ const firebaseAppFactory = new FirebaseAppFactory();
 export const useFirebase = () => {
   return {
     firebaseAuthService: new FirebaseAuthService(getAuth(firebaseAppFactory.getFirebaseApp())),
-    fireStorageService: new FireStorageService(getStorage(firebaseAppFactory.getFirebaseApp()))
+    fireStorageService: new FireStorageService(getStorage(firebaseAppFactory.getFirebaseApp(), import.meta.env.VITE_BUCKET_NAME))
   };
 }
