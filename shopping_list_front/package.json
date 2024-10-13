@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "type": "module",
   "scripts": {
-    "dev": "ionic serve",
+    "dev": "ionic serve --ssl",
     "dev:local": "vite --host=localhost --port=8100 --mode dev",
     "build": "tsc && vite build && cp ./src/_redirects ./www",
     "build:dev": "npm i && npm run build",
