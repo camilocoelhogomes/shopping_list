@@ -1,10 +1,11 @@
 import { IonButton, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { logoGoogle } from "ionicons/icons";
-import { firebaseAuthService } from "../firebase/fibaseConfig";
+import { useFirebase } from "../firebase/fibaseConfig";
 import { useHistory } from "react-router";
 
 export const AuthPage: React.FC = () => {
   const history = useHistory();
+  const { firebaseAuthService } = useFirebase();
   const siginInWithGoogle = () => {
     firebaseAuthService
       .siginInWithGoogle()

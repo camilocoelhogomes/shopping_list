@@ -1,22 +1,37 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { FirebaseApp, FirebaseOptions, initializeApp } from "firebase/app";
 import { FirebaseAuthService } from "./auth/firebaseAuthService";
 import { getAuth } from "firebase/auth";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { FireStorageService } from "./storage/FireStorageService";
+import { getStorage } from "firebase/storage";
+import { useEffect } from "react";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: import.meta.env.VITE_API_KEY,
-  authDomain: import.meta.env.VITE_AUTH_DOMAIN,
-  databaseURL: import.meta.env.VITE_DATABASE_URL,
-  projectId: import.meta.env.VITE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
-  measurementId: import.meta.env.VITE_MEASUREMENT_ID
-};
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-export const firebaseAuthService = new FirebaseAuthService(getAuth(app));
+export const useFirebase = () => {
+  const firebaseConfig: FirebaseOptions = {};
+  let app: FirebaseApp = initializeApp(firebaseConfig);
+  let firebaseAuthService: FirebaseAuthService | undefined = undefined;
+  let firebaseStorageService: FireStorageService | undefined = undefined;
+
+  useEffect(() => {
+    firebaseConfig.apiKey = import.meta.env.VITE_API_KEY;
+    firebaseConfig.authDomain = import.meta.env.VITE_AUTH_DOMAIN;
+    firebaseConfig.databaseURL = import.meta.env.VITE_DATABASE_URL;
+    firebaseConfig.projectId = import.meta.env.VITE_PROJECT_ID;
+    firebaseConfig.storageBucket = import.meta.env.VITE_STORAGE_BUCKET;
+    //FireStorageService.messagingSenderId= import.meta.env.VITE_MESSAGING_SENDER_ID;
+    firebaseConfig.measurementId = import.meta.env.VITE_MEASUREMENT_ID;
+    app = initializeApp(firebaseConfig);
+    firebaseAuthService = new FirebaseAuthService(getAuth(app));
+    firebaseStorageService = new FireStorageService(getStorage(app));
+  }, []);
+
+  if (!firebaseAuthService || !firebaseStorageService) {
+    firebaseAuthService = new FirebaseAuthService(getAuth(app));
+    firebaseStorageService = new FireStorageService(getStorage(app));
+  }
+
+  return {
+    firebaseAuthService,
+    firebaseStorageService
+  };
+}

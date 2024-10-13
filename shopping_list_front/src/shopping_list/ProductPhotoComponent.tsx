@@ -11,11 +11,15 @@ export function usePhotoGallery() {
 
   const takePhoto = async () => {
     const photo = await Camera.getPhoto({
-      resultType: CameraResultType.Uri,
+      resultType: CameraResultType.Base64,
       source: CameraSource.Prompt,
-      quality: 100,
+      quality: 50,
+      allowEditing: false,
+      width: 320,
+      height: 320,
     });
-    console.log({ photo })
+    console.log(photo.base64String);
+    return photo.base64String!;
   };
   return {
     takePhoto,
