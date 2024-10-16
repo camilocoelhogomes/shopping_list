@@ -1,13 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { FirebaseApp, FirebaseOptions, initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { FirebaseAuthService } from "./auth/firebaseAuthService";
-import { getAuth } from "firebase/auth";
-import { FireStorageService } from "./storage/FireStorageService";
-import { getStorage } from "firebase/storage";
-import { useEffect } from "react";
 
-class FirebaseAppFactory {
+class FirebaseConfig {
   private app: FirebaseApp;
 
   constructor() {
@@ -29,11 +23,4 @@ class FirebaseAppFactory {
   }
 }
 
-const firebaseAppFactory = new FirebaseAppFactory();
-
-export const useFirebase = () => {
-  return {
-    firebaseAuthService: new FirebaseAuthService(getAuth(firebaseAppFactory.getFirebaseApp())),
-    fireStorageService: new FireStorageService(getStorage(firebaseAppFactory.getFirebaseApp(), import.meta.env.VITE_BUCKET_NAME))
-  };
-}
+export const firebaseConfigInstance = new FirebaseConfig();

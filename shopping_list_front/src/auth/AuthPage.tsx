@@ -1,16 +1,20 @@
 import { IonButton, IonContent, IonHeader, IonIcon, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { logoGoogle } from "ionicons/icons";
-import { useFirebase } from "../firebase/fibaseConfig";
 import { useHistory } from "react-router";
+import { useAppDispatch } from "../store/hook";
+import { firebaseAuthService } from "../firebase/auth/firebaseAuthService";
+import { setUser } from "./authSlice";
 
 export const AuthPage: React.FC = () => {
   const history = useHistory();
-  const { firebaseAuthService } = useFirebase();
+  const dispatch = useAppDispatch();
   const siginInWithGoogle = () => {
     firebaseAuthService
       .siginInWithGoogle()
-      .then(() => { history.push('/shopping-list') })
-      .catch((error) => { console.error(error) });
+      .then((credential) => {
+        dispatch(setUser(credential.user.uid));
+        history.push("/onboarding-merchant");
+      });
   }
 
   return (
