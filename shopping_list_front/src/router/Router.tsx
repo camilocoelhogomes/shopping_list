@@ -20,9 +20,11 @@ export const Router = () => {
             <ForceSignIn>
               <ShoppingListPage />
             </ForceSignIn>
-            <Route path="/onboarding-merchant" exact={true}>
+          </Route>
+          <Route path="/onboarding-merchant" exact={true}>
+            <ForceSignIn>
               <OnboardingMerchant />
-            </Route>
+            </ForceSignIn>
           </Route>
           <Route path="/" exact={true}>
             <Redirect to="/auth" />
