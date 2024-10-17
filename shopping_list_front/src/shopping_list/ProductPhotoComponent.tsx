@@ -8,6 +8,14 @@ export function usePhotoGallery() {
     defineCustomElements(window);
   }, [])
 
+  const getPhotoFromGalery = async () => {
+    const photo = await Camera.getPhoto({
+      resultType: CameraResultType.Base64,
+      source: CameraSource.Photos,
+      allowEditing: false,
+    })
+    return photo.base64String!;
+  }
 
   const takePhoto = async () => {
     const photo = await Camera.getPhoto({
@@ -22,5 +30,6 @@ export function usePhotoGallery() {
   };
   return {
     takePhoto,
+    getPhotoFromGalery
   };
 }

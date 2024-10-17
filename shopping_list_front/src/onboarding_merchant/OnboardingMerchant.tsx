@@ -1,27 +1,30 @@
 import React, { useState } from "react";
-import { IonContent, IonHeader, IonInput, IonItem, IonPage, IonText, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonContent, IonHeader, IonImg, IonInput, IonItem, IonPage, IonText, IonTitle, IonToolbar } from "@ionic/react";
 import { useAppSelector } from "../store/hook";
+import { usePhotoGallery } from "../shopping_list/ProductPhotoComponent";
 
 interface Merchant {
   merchantName: string;
   merchantUri: string;
+  merchantLogo?: string;
 }
 
 export const OnboardingMerchant: React.FC = () => {
   const userId = useAppSelector(s => s.auth);
-  const [merchant, setMerchant] = useState<Merchant>({ merchantName: '', merchantUri: '' })
-  const merchantChange = (e: React.FormEvent<HTMLIonInputElement>, key: keyof Merchant) => {
-    e.preventDefault();
+  const [merchant, setMerchant] = useState<Partial<Merchant>>({ merchantName: '', merchantUri: '' })
+  const { getPhotoFromGalery } = usePhotoGallery();
+  const merchantChange = (e: Merchant[keyof Merchant], key: keyof Merchant) => {
     if (key === 'merchantName') {
-      const merchantName = e.currentTarget.value?.toString() ?? '';
-      setMerchant({ ...merchant, merchantName, merchantUri: cleanSubdomainName(merchantName) });
+      const merchantName = e;
+      setMerchant({ ...merchant, merchantName, merchantUri: cleanSubdomainName(e) });
       return;
     }
-    setMerchant({ ...merchant, [key]: e.currentTarget.value?.toString() ?? '' });
+    setMerchant({ ...merchant, [key]: e });
   }
 
-  function cleanSubdomainName(subdomain: string): string {
+  function cleanSubdomainName(subdomain?: string): string | undefined {
     // Remove invalid characters
+    if (!subdomain) return;
     let cleaned = subdomain.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
     // Remove invalid characters
@@ -38,6 +41,12 @@ export const OnboardingMerchant: React.FC = () => {
     return cleaned.toLocaleLowerCase();
   }
 
+  function handleUploadImage() {
+    getPhotoFromGalery().then((photo) => {
+      merchantChange(photo, 'merchantLogo');
+    })
+  }
+
   return (
     <IonPage>
       <IonHeader>
@@ -49,7 +58,7 @@ export const OnboardingMerchant: React.FC = () => {
         <IonItem>
           <IonInput
             value={merchant.merchantName}
-            onInput={(e) => merchantChange(e, 'merchantName')}
+            onInput={(e) => merchantChange(e.currentTarget.value?.toString(), 'merchantName')}
             placeholder="Qual o nome da seu mercado?"
             label="Nome do mercado"
             labelPlacement="stacked"
@@ -61,6 +70,15 @@ export const OnboardingMerchant: React.FC = () => {
             Subdominio: {merchant.merchantUri}
           </IonText>
         </IonItem>
+        <IonItem>
+          <IonButton onClick={handleUploadImage}>Upload Image</IonButton>
+        </IonItem>
+        {merchant.merchantLogo && (
+          <IonItem>
+            <img src={`data:image/jpg;base64,${merchant.merchantLogo}`} alt="Merchant Logo" />
+
+          </IonItem>
+        )}
       </IonContent>
     </IonPage>)
 }
