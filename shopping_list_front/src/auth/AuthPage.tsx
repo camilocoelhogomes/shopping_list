@@ -12,8 +12,12 @@ export const AuthPage: React.FC = () => {
     firebaseAuthService
       .siginInWithGoogle()
       .then((credential) => {
-        dispatch(setUser(credential.user.uid));
-        history.push("/onboarding-merchant");
+
+        credential.user?.getIdToken().then((token) => {
+          dispatch(setUser({ userId: credential.user?.uid ?? '', sessionToken: token }));
+          history.push("/onboarding-merchant");
+        })
+
       });
   }
 

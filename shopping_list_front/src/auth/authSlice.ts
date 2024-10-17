@@ -3,18 +3,24 @@ import { User, UserCredential } from "firebase/auth";
 import { RootState } from "../store/store";
 
 export interface AuthDto {
-  userId: string
+  userId: string,
+  sessionToken: string,
 }
 
 export const authSlice = createSlice({
   name: "auth",
   initialState: {
     userId: '',
+    sessionToken: '',
   } as AuthDto,
   reducers: {
-    setUser: (state, action: PayloadAction<string>) => {
+    setUser: (state, action: PayloadAction<AuthDto>) => {
       console.info("Setting user", action.payload);
-      state.userId = action.payload;
+      (Object.keys(state) as (keyof AuthDto)[]).forEach((key) => {
+        if (state[key] !== action.payload[key]) {
+          state[key] = action.payload[key];
+        }
+      })
     },
   },
 });
