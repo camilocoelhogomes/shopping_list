@@ -14,8 +14,8 @@ export const AuthPage: React.FC = () => {
       .then((credential) => {
 
         credential.user?.getIdToken().then((token) => {
-          dispatch(setUser({ userId: credential.user?.uid ?? '', sessionToken: token }));
-          history.push("/onboarding-merchant");
+          dispatch(setUser({ ...credential.user, userId: credential.user?.uid ?? '', sessionToken: token }));
+          history.push("/onboarding/user");
         })
 
       });

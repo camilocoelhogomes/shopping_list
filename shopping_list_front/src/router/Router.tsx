@@ -4,8 +4,9 @@ import { Route, Redirect } from "react-router"
 import { AuthPage } from "../auth/AuthPage"
 import Menu from "../components/Menu"
 import { ShoppingListPage } from "../shopping_list/ShoppingListPage"
-import { OnboardingMerchant } from "../onboarding_merchant/OnboardingMerchant"
+import { OnboardingMerchant } from "../onboarding/OnboardingMerchant"
 import { ForceSignIn } from "../auth/ForceSignIn"
+import { OnboardingUser } from "../onboarding/OnboardingUser"
 
 export const Router = () => {
   return (
@@ -24,6 +25,11 @@ export const Router = () => {
           <Route path="/onboarding-merchant" exact={true}>
             <ForceSignIn>
               <OnboardingMerchant />
+            </ForceSignIn>
+          </Route>
+          <Route path="/onboarding/User" exact={true}>
+            <ForceSignIn>
+              <OnboardingUser />
             </ForceSignIn>
           </Route>
           <Route path="/" exact={true}>

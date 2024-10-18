@@ -1,34 +1,21 @@
-import React, { useRef } from "react";
-import { IonButton, IonButtons, IonContent, IonHeader, IonItem, IonModal, IonTitle, IonToolbar } from "@ionic/react"
+import React, { useEffect, useRef, useState } from "react";
+import { IonButton, IonButtons, IonContent, IonHeader, IonItem, IonModal, IonPage, IonTitle, IonToolbar } from "@ionic/react"
+import { Jimp, JimpInstance } from "jimp";
 
 export interface ImageProcessorProps {
-  image: string;
-  trigger: string;
+  imageB64: string;
 }
 
-export const ImageProcessor: React.FC<ImageProcessorProps> = ({ image, trigger }) => {
-  const modal = useRef<HTMLIonModalElement>(null);
+export const ImageProcessor: React.FC<ImageProcessorProps> = ({ imageB64 }) => {
+
+  const [jimpImage, setJimpImage] = useState();
+  const [image, setImage] = useState<string | undefined>(undefined);
+  const [transformedImage, setTransformedImage] = useState(undefined);
+
+
+
 
   return (
-    <IonModal ref={modal} trigger={trigger}>
-
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonButton onClick={() => modal.current?.dismiss()}>Cancel</IonButton>
-          </IonButtons>
-          <IonTitle>Welcome</IonTitle>
-          <IonButtons slot="end">
-            <IonButton strong={true} onClick={() => confirm()}>
-              Confirm
-            </IonButton>
-          </IonButtons>
-        </IonToolbar>
-      </IonHeader>
-
-      <IonItem>
-        <img src={`data:image/jpg;base64,${image}`} alt="Merchant Logo" />
-      </IonItem>
-    </IonModal>
+    <h1>teste</h1>
   )
 }

@@ -76,9 +76,9 @@ export const OnboardingMerchant: React.FC = () => {
           <IonButton id="open-modal" onClick={handleUploadImage}>Upload Image</IonButton>
         </IonItem>
         {merchant.merchantLogo && (
-          <ImageProcessor
-            image={merchant.merchantLogo}
-            trigger="open-modal" />
+          <IonImg
+            src={`data:image/png;base64,${merchant.merchantLogo}`}
+          />
         )}
       </IonContent>
     </IonPage>)

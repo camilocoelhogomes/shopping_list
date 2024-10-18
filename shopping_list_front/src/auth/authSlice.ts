@@ -1,10 +1,13 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { User, UserCredential } from "firebase/auth";
 import { RootState } from "../store/store";
 
 export interface AuthDto {
   userId: string,
   sessionToken: string,
+  displayName: string | null,
+  email: string | null,
+  phoneNumber: string | null,
+  photoURL: string | null
 }
 
 export const authSlice = createSlice({
@@ -17,9 +20,8 @@ export const authSlice = createSlice({
     setUser: (state, action: PayloadAction<AuthDto>) => {
       console.info("Setting user", action.payload);
       (Object.keys(state) as (keyof AuthDto)[]).forEach((key) => {
-        if (state[key] !== action.payload[key]) {
-          state[key] = action.payload[key];
-        }
+        if (!action.payload[key] || state[key] === action.payload[key]) return;
+        state[key] = action.payload[key];
       })
     },
   },
