@@ -7,12 +7,13 @@ import { ShoppingListPage } from "../shopping_list/ShoppingListPage"
 import { OnboardingMerchant } from "../onboarding/OnboardingMerchant"
 import { ForceSignIn } from "../auth/ForceSignIn"
 import { OnboardingUser } from "../onboarding/OnboardingUser"
+import { Header } from "../components/Header"
 
 export const Router = () => {
   return (
     <IonReactRouter>
       <IonSplitPane contentId="main">
-        <Menu />
+        <Header />
         <IonRouterOutlet id="main">
           <Route path="/auth" exact={true}>
             <AuthPage />

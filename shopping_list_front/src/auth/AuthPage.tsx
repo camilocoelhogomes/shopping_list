@@ -12,9 +12,16 @@ export const AuthPage: React.FC = () => {
     firebaseAuthService
       .siginInWithGoogle()
       .then((credential) => {
-
+        console.log(credential);
         credential.user?.getIdToken().then((token) => {
-          dispatch(setUser({ ...credential.user, userId: credential.user?.uid ?? '', sessionToken: token }));
+          dispatch(setUser({
+            userId: credential.user?.uid ?? '',
+            sessionToken: token,
+            photoURL: credential.user?.photoURL,
+            displayName: credential.user?.displayName,
+            email: credential.user?.email,
+            phoneNumber: credential.user?.phoneNumber
+          }));
           history.push("/onboarding/user");
         })
 

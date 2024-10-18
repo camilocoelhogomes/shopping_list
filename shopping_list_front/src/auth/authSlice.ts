@@ -18,8 +18,7 @@ export const authSlice = createSlice({
   } as AuthDto,
   reducers: {
     setUser: (state, action: PayloadAction<AuthDto>) => {
-      console.info("Setting user", action.payload);
-      (Object.keys(state) as (keyof AuthDto)[]).forEach((key) => {
+      (Object.keys(action.payload) as (keyof AuthDto)[]).forEach((key) => {
         if (!action.payload[key] || state[key] === action.payload[key]) return;
         state[key] = action.payload[key];
       })
