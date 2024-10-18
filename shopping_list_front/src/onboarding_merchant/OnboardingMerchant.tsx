@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { IonButton, IonContent, IonHeader, IonImg, IonInput, IonItem, IonPage, IonText, IonTitle, IonToolbar } from "@ionic/react";
 import { useAppSelector } from "../store/hook";
 import { usePhotoGallery } from "../shopping_list/ProductPhotoComponent";
+import { ImageProcessor } from "../image_processor/ImageProcessor";
 
 interface Merchant {
   merchantName: string;
@@ -44,6 +45,7 @@ export const OnboardingMerchant: React.FC = () => {
   function handleUploadImage() {
     getPhotoFromGalery().then((photo) => {
       merchantChange(photo, 'merchantLogo');
+
     })
   }
 
@@ -71,13 +73,12 @@ export const OnboardingMerchant: React.FC = () => {
           </IonText>
         </IonItem>
         <IonItem>
-          <IonButton onClick={handleUploadImage}>Upload Image</IonButton>
+          <IonButton id="open-modal" onClick={handleUploadImage}>Upload Image</IonButton>
         </IonItem>
         {merchant.merchantLogo && (
-          <IonItem>
-            <img src={`data:image/jpg;base64,${merchant.merchantLogo}`} alt="Merchant Logo" />
-
-          </IonItem>
+          <ImageProcessor
+            image={merchant.merchantLogo}
+            trigger="open-modal" />
         )}
       </IonContent>
     </IonPage>)
