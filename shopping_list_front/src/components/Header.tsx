@@ -28,7 +28,6 @@ export const Header = ({ pageHeader }: HeaderProps) => {
               <IonAvatar slot="icon-only"><img src={user.photoURL} /></IonAvatar> :
               <IonIcon icon={user.photoURL ?? personCircle}></IonIcon>
             }
-
           </IonButton>
         </IonButtons>
 
