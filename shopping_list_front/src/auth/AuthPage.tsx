@@ -3,8 +3,9 @@ import { logoGoogle } from "ionicons/icons";
 import { useHistory } from "react-router";
 import { useAppDispatch } from "../store/hook";
 import { firebaseAuthService } from "../firebase/auth/firebaseAuthService";
-import { setUser } from "./authSlice";
 import { Header } from "../components/Header";
+import { setUser } from "../store/store_slice/userSlice";
+import { setAuth } from "../store/store_slice/authSlice";
 
 export const AuthPage: React.FC = () => {
   const history = useHistory();
@@ -14,18 +15,20 @@ export const AuthPage: React.FC = () => {
       .siginInWithGoogle()
       .then((credential) => {
         console.log(credential);
+        dispatch(setUser({
+          userId: credential.user?.uid ?? '',
+          photoURL: credential.user?.photoURL,
+          displayName: credential.user?.displayName,
+          email: credential.user?.email,
+          phoneNumber: credential.user?.phoneNumber
+        })
+        );
         credential.user?.getIdToken().then((token) => {
-          dispatch(setUser({
-            userId: credential.user?.uid ?? '',
+          dispatch(setAuth({
             sessionToken: token,
-            photoURL: credential.user?.photoURL,
-            displayName: credential.user?.displayName,
-            email: credential.user?.email,
-            phoneNumber: credential.user?.phoneNumber
           }));
           history.push("/onboarding/user");
         })
-
       });
   }
 

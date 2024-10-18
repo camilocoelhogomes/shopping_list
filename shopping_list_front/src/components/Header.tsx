@@ -7,7 +7,7 @@ interface HeaderProps {
 }
 
 export const Header = ({ pageHeader }: HeaderProps) => {
-  const user = useAppSelector(s => s.auth);
+  const user = useAppSelector(s => s.user);
 
   return (
     <IonHeader
