@@ -1,20 +1,19 @@
-import { IonSplitPane, IonRouterOutlet } from "@ionic/react"
+import { IonSplitPane, IonRouterOutlet, IonContent } from "@ionic/react"
 import { IonReactRouter } from "@ionic/react-router"
 import { Route, Redirect } from "react-router"
 import { AuthPage } from "../auth/AuthPage"
-import Menu from "../components/Menu"
 import { ShoppingListPage } from "../shopping_list/ShoppingListPage"
 import { OnboardingMerchant } from "../onboarding/OnboardingMerchant"
 import { ForceSignIn } from "../auth/ForceSignIn"
 import { OnboardingUser } from "../onboarding/OnboardingUser"
-import { Header } from "../components/Header"
 
 export const Router = () => {
   return (
     <IonReactRouter>
       <IonSplitPane contentId="main">
-        <Header />
-        <IonRouterOutlet id="main">
+
+        <IonRouterOutlet>
+
           <Route path="/auth" exact={true}>
             <AuthPage />
           </Route>
@@ -37,6 +36,7 @@ export const Router = () => {
             <Redirect to="/auth" />
           </Route>
         </IonRouterOutlet>
+
       </IonSplitPane>
     </IonReactRouter>
   )

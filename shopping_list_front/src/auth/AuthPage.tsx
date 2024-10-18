@@ -4,6 +4,7 @@ import { useHistory } from "react-router";
 import { useAppDispatch } from "../store/hook";
 import { firebaseAuthService } from "../firebase/auth/firebaseAuthService";
 import { setUser } from "./authSlice";
+import { Header } from "../components/Header";
 
 export const AuthPage: React.FC = () => {
   const history = useHistory();
@@ -30,11 +31,7 @@ export const AuthPage: React.FC = () => {
 
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Auth</IonTitle>
-        </IonToolbar>
-      </IonHeader>
+      <Header pageHeader="Auth" />
       <IonContent>
         <IonButton onClick={siginInWithGoogle} expand="full" color="primary">
           <IonIcon slot="start" icon={logoGoogle} />
