@@ -12,7 +12,8 @@ export const AuthPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const siginInWithGoogle = async () => {
     const { user } = await firebaseAuthService.siginInWithGoogle();
-    console.log(user);
+    const token = await user.getIdToken();
+    dispatch(setAuth({ sessionToken: token }));
     dispatch(setUser({
       userId: user.uid,
       displayName: user.displayName,
@@ -20,8 +21,6 @@ export const AuthPage: React.FC = () => {
       photoURL: user.photoURL,
       phoneNumber: user.phoneNumber
     }));
-    const token = await user.getIdToken();
-    dispatch(setAuth({ sessionToken: token }));
     history.push("/onboarding/user");
   }
 
