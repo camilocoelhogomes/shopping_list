@@ -1,11 +1,10 @@
-import { Auth, getAuth, GoogleAuthProvider, signInWithPopup, UserCredential } from "firebase/auth";
+import { Auth, getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { firebaseConfigInstance } from "../FirebaseConfig";
 
 export class FirebaseAuthService {
 
   private provider = new GoogleAuthProvider();
   private auth: Auth;
-  private credential?: UserCredential;
 
   constructor(auth: Auth) {
     this.auth = auth;
