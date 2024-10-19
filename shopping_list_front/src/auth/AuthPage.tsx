@@ -19,10 +19,10 @@ export const AuthPage: React.FC = () => {
     firebaseConfig!.setUser(user);
     dispatch(setUser({
       userId: user.uid,
-      displayName: user.displayName,
-      email: user.email,
-      photoURL: user.photoURL,
-      phoneNumber: user.phoneNumber
+      displayName: user.displayName ?? undefined,
+      email: user.email ?? undefined,
+      photoURL: user.photoURL ?? undefined,
+      phoneNumber: user.phoneNumber ?? undefined
     }));
     history.push("/onboarding/user");
   }

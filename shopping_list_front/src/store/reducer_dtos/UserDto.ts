@@ -1,7 +1,9 @@
 export interface UserDto {
   userId: string,
-  displayName: string | null,
-  email: string | null,
-  phoneNumber: string | null,
-  photoURL: string | null
+  displayName: string,
+  email: string,
+  phoneNumber: string,
+  photoURL: string
+  title: string,
+  preferredName: string
 }
