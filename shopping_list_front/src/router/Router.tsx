@@ -13,7 +13,6 @@ export const Router = () => {
       <IonSplitPane contentId="main">
 
         <IonRouterOutlet>
-
           <Route path="/auth" exact={true}>
             <AuthPage />
           </Route>
