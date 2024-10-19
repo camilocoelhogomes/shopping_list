@@ -3,7 +3,6 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonList, IonItem,
 import ShoppingListCustomComponent from './ShoppingListCustomComponent';
 import { bagCheck, camera, trash } from 'ionicons/icons';
 import { usePhotoGallery } from './ProductPhotoComponent';
-import { useFirebase } from '../firebase/fibaseConfig';
 
 interface ShoppingItem {
   name: string;
@@ -15,15 +14,14 @@ export const ShoppingListPage: React.FC = () => {
   const [items, setItems] = useState<ShoppingItem[]>([]);
   const [newItem, setNewItem] = useState<ShoppingItem>({ name: '', quantity: 1, isOkToBuy: false });
   const { takePhoto } = usePhotoGallery();
-  const { fireStorageService } = useFirebase();
+
   const addItem = () => {
     setItems([...items, newItem]);
     setNewItem({ name: '', quantity: 1, isOkToBuy: false });
   };
   const cameraClick = async () => {
     const photo = await takePhoto();
-    const uri = fireStorageService.uploadFile(`data:image/jpg;base64,${photo}`, newItem.name)
-    console.log(uri);
+
   }
 
   return (

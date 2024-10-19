@@ -34,29 +34,31 @@ import '@ionic/react/css/palettes/dark.system.css';
 import './theme/variables.css';
 import { ShoppingListPage } from './shopping_list/ShoppingListPage';
 import { AuthPage } from './auth/AuthPage';
+import { Router } from './router/Router';
+import { Provider } from 'react-redux';
+import { store } from './store/store';
+import { FirebaseConfig, FirebaseContext } from './firebase/FirebaseContext';
+import { useState } from 'react';
+import { User } from 'firebase/auth';
 
 setupIonicReact();
 
 const App: React.FC = () => {
+
+  const [user, setUser] = useState<User | undefined>()
+
   return (
-    <IonApp>
-      <IonReactRouter>
-        <IonSplitPane contentId="main">
-          <Menu />
-          <IonRouterOutlet id="main">
-            <Route path="/auth" exact={true}>
-              <AuthPage />
-            </Route>
-            <Route path="/shopping-list" exact={true}>
-              <ShoppingListPage />
-            </Route>
-            <Route path="/" exact={true}>
-              <Redirect to="/auth" />
-            </Route>
-          </IonRouterOutlet>
-        </IonSplitPane>
-      </IonReactRouter>
-    </IonApp>
+
+    <Provider store={store}>
+      <IonApp>
+        <FirebaseContext.Provider value={new FirebaseConfig(user, setUser)}>
+          <Router />
+        </FirebaseContext.Provider>
+      </IonApp>
+    </Provider>
+
+
+
   );
 };
 
