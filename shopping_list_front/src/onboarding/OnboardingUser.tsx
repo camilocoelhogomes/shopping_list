@@ -4,6 +4,8 @@ import { Header } from "../components/Header";
 
 export const OnboardingUser: React.FC = () => {
 
+  
+
   return (
     <IonPage>
       <Header pageHeader="Bem vindo!" />
