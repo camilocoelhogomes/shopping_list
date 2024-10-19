@@ -5,7 +5,7 @@ import { AuthPage } from "../auth/AuthPage"
 import { ShoppingListPage } from "../shopping_list/ShoppingListPage"
 import { OnboardingMerchant } from "../onboarding/OnboardingMerchant"
 import { ForceSignIn } from "../auth/ForceSignIn"
-import { OnboardingUser } from "../onboarding/OnboardingUser"
+import { OnboardingUser } from "../onboarding/onboarding_user/OnboardingUser"
 
 export const Router = () => {
   return (

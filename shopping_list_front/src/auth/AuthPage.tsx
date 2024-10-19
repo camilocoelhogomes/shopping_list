@@ -4,7 +4,7 @@ import { useHistory } from "react-router";
 import { useAppDispatch } from "../store/hook";
 import { Header } from "../components/Header";
 import { setUser } from "../store/store_slice/userSlice";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { FirebaseContext } from "../firebase/FirebaseContext";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
@@ -26,6 +26,10 @@ export const AuthPage: React.FC = () => {
     }));
     history.push("/onboarding/user");
   }
+
+  useEffect(() => {
+    dispatch(setUser())
+  }, [])
 
   return (
     <IonPage>

@@ -1,3 +1,7 @@
+export interface UserDocumentDto {
+  documentNumber: string,
+}
+
 export interface UserDto {
   userId: string,
   displayName: string,
@@ -5,5 +9,6 @@ export interface UserDto {
   phoneNumber: string,
   photoURL: string
   title: string,
-  preferredName: string
+  preferredName: string,
+  document: UserDocumentDto
 }
