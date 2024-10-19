@@ -38,12 +38,17 @@ import { Router } from './router/Router';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import { FirebaseConfig, FirebaseContext } from './firebase/FirebaseContext';
+import { useState } from 'react';
+import { User } from 'firebase/auth';
 
 setupIonicReact();
 
 const App: React.FC = () => {
+
+  const [user, setUser] = useState<User | undefined>()
+
   return (
-    <FirebaseContext.Provider value={new FirebaseConfig()}>
+    <FirebaseContext.Provider value={{ firebaseConfig: new FirebaseConfig(user, setUser) }}>
       <Provider store={store}>
         <IonApp>
           <Router />
