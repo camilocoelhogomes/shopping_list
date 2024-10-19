@@ -10,26 +10,19 @@ import { setAuth } from "../store/store_slice/authSlice";
 export const AuthPage: React.FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
-  const siginInWithGoogle = () => {
-    firebaseAuthService
-      .siginInWithGoogle()
-      .then((credential) => {
-        console.log(credential);
-        dispatch(setUser({
-          userId: credential.user?.uid ?? '',
-          photoURL: credential.user?.photoURL,
-          displayName: credential.user?.displayName,
-          email: credential.user?.email,
-          phoneNumber: credential.user?.phoneNumber
-        })
-        );
-        credential.user?.getIdToken().then((token) => {
-          dispatch(setAuth({
-            sessionToken: token,
-          }));
-          history.push("/onboarding/user");
-        })
-      });
+  const siginInWithGoogle = async () => {
+    const { user } = await firebaseAuthService.siginInWithGoogle();
+    console.log(user);
+    dispatch(setUser({
+      userId: user.uid,
+      displayName: user.displayName,
+      email: user.email,
+      photoURL: user.photoURL,
+      phoneNumber: user.phoneNumber
+    }));
+    const token = await user.getIdToken();
+    dispatch(setAuth({ sessionToken: token }));
+    history.push("/onboarding/user");
   }
 
   return (

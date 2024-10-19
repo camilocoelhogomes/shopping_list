@@ -21,12 +21,11 @@ export const Header = ({ pageHeader }: HeaderProps) => {
           <IonMenuButton autoHide={false}></IonMenuButton>
         </IonButtons>
         <IonTitle>{pageHeader}</IonTitle>
-
         <IonButtons slot="end">
           <IonButton>
-            {user.photoURL ?
-              <IonAvatar slot="icon-only"><img src={user.photoURL} /></IonAvatar> :
-              <IonIcon icon={user.photoURL ?? personCircle}></IonIcon>
+            {user!.photoURL ?
+              <IonAvatar slot="icon-only"><img src={user!.photoURL} /></IonAvatar> :
+              <IonIcon icon={user!.photoURL ?? personCircle}></IonIcon>
             }
           </IonButton>
         </IonButtons>

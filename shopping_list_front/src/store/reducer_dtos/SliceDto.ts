@@ -1,0 +1,1 @@
+export type SliceDto<T> = Partial<T> | undefined;
