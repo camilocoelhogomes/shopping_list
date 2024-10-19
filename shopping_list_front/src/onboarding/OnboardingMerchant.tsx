@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { IonButton, IonContent, IonHeader, IonImg, IonInput, IonItem, IonPage, IonText, IonTitle, IonToolbar } from "@ionic/react";
-import { useAppSelector } from "../store/hook";
 import { usePhotoGallery } from "../shopping_list/ProductPhotoComponent";
-import { ImageProcessor } from "../image_processor/ImageProcessor";
 
 interface Merchant {
   merchantName: string;
@@ -11,7 +9,6 @@ interface Merchant {
 }
 
 export const OnboardingMerchant: React.FC = () => {
-  const userId = useAppSelector(s => s.auth);
   const [merchant, setMerchant] = useState<Partial<Merchant>>({ merchantName: '', merchantUri: '' })
   const { getPhotoFromGalery } = usePhotoGallery();
   const merchantChange = (e: Merchant[keyof Merchant], key: keyof Merchant) => {
