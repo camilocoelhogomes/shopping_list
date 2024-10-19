@@ -7,11 +7,14 @@ import { setUser } from "../store/store_slice/userSlice";
 import { useContext, useEffect } from "react";
 import { FirebaseContext } from "../firebase/FirebaseContext";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { useBackEndApi } from "../services/api/useBackEndApi";
 
 export const AuthPage: React.FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const firebaseConfig = useContext(FirebaseContext);
+  const { alive } = useBackEndApi();
+
   const siginInWithGoogle = async () => {
     const googleSignIn = new GoogleAuthProvider();
     firebaseConfig!.auth.useDeviceLanguage();
@@ -28,6 +31,7 @@ export const AuthPage: React.FC = () => {
   }
 
   useEffect(() => {
+    alive().then((r) => console.log(r));
     dispatch(setUser())
   }, [])
 
