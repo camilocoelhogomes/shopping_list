@@ -1,6 +1,5 @@
 import { useHistory } from "react-router";
 import { useContext, useEffect } from "react";
-import { useAppSelector } from "../store/hook";
 import { FirebaseContext } from "../firebase/FirebaseContext";
 
 export const ForceSignIn = ({ children }: { children: JSX.Element }) => {
