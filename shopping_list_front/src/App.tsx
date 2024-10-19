@@ -37,16 +37,20 @@ import { AuthPage } from './auth/AuthPage';
 import { Router } from './router/Router';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
+import { FirebaseConfig, FirebaseContext } from './firebase/FirebaseContext';
 
 setupIonicReact();
 
 const App: React.FC = () => {
   return (
-    <Provider store={store}>
-      <IonApp>
-        <Router />
-      </IonApp>
-    </Provider>
+    <FirebaseContext.Provider value={new FirebaseConfig()}>
+      <Provider store={store}>
+        <IonApp>
+          <Router />
+        </IonApp>
+      </Provider>
+    </FirebaseContext.Provider>
+
 
   );
 };

@@ -8,7 +8,6 @@ export const ForceSignIn = ({ children }: { children: JSX.Element }) => {
 
   useEffect(() => {
     if (!user) {
-
       history.push("/auth");
     }
   }, []);

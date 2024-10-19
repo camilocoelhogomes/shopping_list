@@ -1,8 +1,13 @@
-// Import the functions you need from the SDKs you need
 import { FirebaseApp, FirebaseOptions, initializeApp } from "firebase/app";
+import { Auth, getAuth } from "firebase/auth";
+import { FirebaseStorage, getStorage } from "firebase/storage";
+import { createContext } from "react";
 
-class FirebaseConfig {
-  private app: FirebaseApp;
+export class FirebaseConfig {
+
+  readonly app: FirebaseApp;
+  readonly auth: Auth;
+  readonly storage: FirebaseStorage;
 
   constructor() {
     const firebaseConfig: FirebaseOptions = {
@@ -16,11 +21,11 @@ class FirebaseConfig {
     };
     // Initialize Firebase
     this.app = initializeApp(firebaseConfig);
+    this.auth = getAuth(this.app);
+    this.storage = getStorage(this.app);
   }
 
-  public getFirebaseApp() {
-    return this.app;
-  }
 }
 
-export const firebaseConfigInstance = new FirebaseConfig();
+
+export const FirebaseContext = createContext(new FirebaseConfig());
