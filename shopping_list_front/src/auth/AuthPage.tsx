@@ -4,7 +4,6 @@ import { useHistory } from "react-router";
 import { useAppDispatch } from "../store/hook";
 import { Header } from "../components/Header";
 import { setUser } from "../store/store_slice/userSlice";
-import { setAuth } from "../store/store_slice/authSlice";
 import { useContext } from "react";
 import { FirebaseContext } from "../firebase/FirebaseContext";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
