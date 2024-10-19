@@ -1,13 +1,13 @@
 import { useHistory } from "react-router";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useAppSelector } from "../store/hook";
+import { FirebaseContext } from "../firebase/FirebaseContext";
 
 export const ForceSignIn = ({ children }: { children: JSX.Element }) => {
   const history = useHistory();
-  const user = useAppSelector(s => s.auth?.sessionToken);
-
+  const firebase = useContext(FirebaseContext);
   useEffect(() => {
-    if (!user) {
+    if (!firebase?.user) {
       history.push("/auth");
     }
   }, []);

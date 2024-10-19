@@ -48,13 +48,15 @@ const App: React.FC = () => {
   const [user, setUser] = useState<User | undefined>()
 
   return (
-    <FirebaseContext.Provider value={{ firebaseConfig: new FirebaseConfig(user, setUser) }}>
-      <Provider store={store}>
-        <IonApp>
+
+    <Provider store={store}>
+      <IonApp>
+        <FirebaseContext.Provider value={new FirebaseConfig(user, setUser)}>
           <Router />
-        </IonApp>
-      </Provider>
-    </FirebaseContext.Provider>
+        </FirebaseContext.Provider>
+      </IonApp>
+    </Provider>
+
 
 
   );

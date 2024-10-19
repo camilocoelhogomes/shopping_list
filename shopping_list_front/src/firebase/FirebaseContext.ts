@@ -2,7 +2,6 @@ import { FirebaseApp, FirebaseOptions, initializeApp } from "firebase/app";
 import { Auth, getAuth, User } from "firebase/auth";
 import { FirebaseStorage, getStorage } from "firebase/storage";
 import { createContext } from "react";
-import { FirebaseContextDto } from "./FirebaseContextDto";
 
 export class FirebaseConfig {
 
@@ -34,4 +33,4 @@ export class FirebaseConfig {
 
 
 
-export const FirebaseContext = createContext<Partial<FirebaseContextDto>>({});
+export const FirebaseContext = createContext<FirebaseConfig | undefined>(undefined);
