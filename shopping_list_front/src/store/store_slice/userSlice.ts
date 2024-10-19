@@ -5,8 +5,7 @@ import { SliceDto } from "../reducer_dtos/SliceDto";
 
 export const userSlice = createSlice({
   name: "user",
-  initialState: {
-  } as SliceDto<UserDto>,
+  initialState: {} as SliceDto<UserDto>,
   reducers: {
     setUser: (state, action: PayloadAction<SliceDto<UserDto>>) => {
       if (!state) { state = {} };

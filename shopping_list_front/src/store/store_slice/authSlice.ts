@@ -3,7 +3,6 @@ import { RootState } from "../store";
 import { AuthDto } from "../reducer_dtos/AuthDto";
 import { SliceDto } from "../reducer_dtos/SliceDto";
 
-
 export const authSlice = createSlice({
   name: "auth",
   initialState: {} as SliceDto<AuthDto>,
