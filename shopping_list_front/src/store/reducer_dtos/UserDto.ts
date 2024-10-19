@@ -2,6 +2,16 @@ export interface UserDocumentDto {
   documentNumber: string,
 }
 
+export interface UserAddress {
+  cep: string;
+  state: string;
+  city: string;
+  neighborhood: string;
+  street: string;
+  number: string;
+  complement: string
+}
+
 export interface UserDto {
   userId: string,
   displayName: string,
@@ -10,5 +20,6 @@ export interface UserDto {
   photoURL: string
   title: string,
   preferredName: string,
-  document: UserDocumentDto
+  document: Partial<UserDocumentDto>,
+  address: Partial<UserAddress>
 }

@@ -9,7 +9,7 @@ export const useAuth = () => {
 
   const getToken = async () => {
     try {
-      if (!firebase || !firebase.user) {
+      if (!firebase || !firebase.user || !firebase.user.displayName) {
         history.push("/auth")
         return;
       };

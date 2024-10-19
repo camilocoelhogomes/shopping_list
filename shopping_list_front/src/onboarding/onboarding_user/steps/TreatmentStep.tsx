@@ -19,11 +19,10 @@ export const TreatmentStep = () => {
               value={user.preferredName}
               onIonChange={e => dispatch(setUser({ ...user, preferredName: e.target.value?.toString() }))}
               placeholder="Como gostaria de ser chamado?"
-              label="Confirme seu primeiro nome"
+              label="Seu primeiro nome é?"
               labelPlacement="stacked"
             />
           </IonItem>
-
         </IonItem>
       </IonRadioGroup>
     </IonItem>

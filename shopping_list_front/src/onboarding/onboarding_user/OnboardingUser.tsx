@@ -6,10 +6,14 @@ import { useAppDispatch, useAppSelector } from "../../store/hook";
 import { setUser } from "../../store/store_slice/userSlice";
 import { TreatmentStep } from "./steps/TreatmentStep";
 import { DocumentStep } from "./steps/DocumentStep";
+import { useHistory } from "react-router";
+import { AddressStep } from "./steps/AddressStep";
 
 export const OnboardingUser: React.FC = () => {
 
-  const userAuth = useContext(FirebaseContext)!.user!;
+  const userAuth = useContext(FirebaseContext)?.user;
+  const history = useHistory();
+  if (!userAuth) { history.push('/auth'); return <></> }
   const user = useAppSelector(s => s.user)!;
   const dispatch = useAppDispatch()
   useEffect(() => {
@@ -32,6 +36,7 @@ export const OnboardingUser: React.FC = () => {
         </IonItem>
         <TreatmentStep />
         <DocumentStep />
+        <AddressStep />
       </IonContent>
     </IonPage>
   )

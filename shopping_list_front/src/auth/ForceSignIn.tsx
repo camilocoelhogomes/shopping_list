@@ -5,9 +5,10 @@ import { useAuth } from "./useAuth";
 
 export const ForceSignIn = ({ children }: { children: JSX.Element }) => {
   const history = useHistory();
-  const { getToken } = useAuth();
+  const { getToken, user } = useAuth();
   const dispatch = useAppDispatch();
   const token = getToken();
+
   if (!token) {
     dispatch(setUser())
     history.push("/auth");
