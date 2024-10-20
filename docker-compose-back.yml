@@ -17,4 +17,5 @@ services:
     ports:
       - 5432:5432
     volumes:
+      - ./shopping_list_data_base/:/docker-entrypoint-initdb.d/
       - postgres_data:/var/lib/postgresql/data
