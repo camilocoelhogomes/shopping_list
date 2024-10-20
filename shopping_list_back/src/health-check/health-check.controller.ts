@@ -13,7 +13,6 @@ export class HealthCheckController {
   @UseFilters(ExeptionFallBack)
   findAll(@Headers() headers: { origin: string, host: string }) {
     this.log.log(`Request from ${headers.origin} to ${headers.host}`);
-    throw new Error('erro generico');
     return { message: "I'm a live" };
   }
 }
