@@ -1,4 +1,6 @@
-import { Controller, Get, HttpCode, Headers, Logger } from '@nestjs/common';
+import { Controller, Get, HttpCode, Headers, Logger, UseFilters } from '@nestjs/common';
+import { ExeptionFallBack } from '../erros/ExeptionFallBack';
+import { UnauthorizedError } from '../erros/custom-errors';
 
 
 @Controller('health-check')
@@ -8,8 +10,10 @@ export class HealthCheckController {
 
   @Get()
   @HttpCode(200)
+  @UseFilters(ExeptionFallBack)
   findAll(@Headers() headers: { origin: string, host: string }) {
     this.log.log(`Request from ${headers.origin} to ${headers.host}`);
+    throw new Error('erro generico');
     return { message: "I'm a live" };
   }
 }

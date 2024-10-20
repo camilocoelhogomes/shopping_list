@@ -6,4 +6,4 @@ import { HealthCheckModule } from './health-check/health-check.module';
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
