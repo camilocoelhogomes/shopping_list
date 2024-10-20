@@ -1,4 +1,3 @@
-
 export const configuration = () => {
   console.log(process.env.FIRE_BASE_TYPE);
   return {
@@ -11,9 +10,10 @@ export const configuration = () => {
       client_id: process.env.FIRE_BASE_CLIENT_ID,
       auth_uri: process.env.FIRE_BASE_AUTH_URI,
       token_uri: process.env.FIRE_BASE_TOKEN_URI,
-      auth_provider_x509_cert_url: process.env.FIRE_BASE_AUTH_PROVIDER_X509_CERT_URL,
+      auth_provider_x509_cert_url:
+        process.env.FIRE_BASE_AUTH_PROVIDER_X509_CERT_URL,
       client_x509_cert_url: process.env.FIRE_BASE_CLIENT_X509_CERT_URL,
-      universe_domain: process.env.FIRE_BASE_UNIVERSE_DOMAIN
-    }
-  }
-}
+      universe_domain: process.env.FIRE_BASE_UNIVERSE_DOMAIN,
+    },
+  };
+};

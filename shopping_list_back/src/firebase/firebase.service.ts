@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { credential, initializeApp } from 'firebase-admin';
-import { App, refreshToken } from 'firebase-admin/app';
+import { credential } from 'firebase-admin';
+import { App } from 'firebase-admin/app';
 import { Auth, getAuth } from 'firebase-admin/auth';
 import { UnauthorizedError } from '../erros/custom-errors';
-import * as admin from 'firebase-admin'
+import * as admin from 'firebase-admin';
 
 @Injectable()
 export class FirebaseService {
-
   private readonly firebaseApp: App;
   private readonly firebaseAuth: Auth;
 
@@ -17,7 +16,7 @@ export class FirebaseService {
     const c = credential.cert(firebaseConfig);
     this.firebaseApp = admin.initializeApp({
       credential: c,
-    })
+    });
     this.firebaseAuth = getAuth(this.firebaseApp);
   }
 
@@ -29,5 +28,4 @@ export class FirebaseService {
       throw new UnauthorizedError();
     }
   }
-
 }

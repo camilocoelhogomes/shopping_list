@@ -7,12 +7,10 @@ import { AuthMiddleware } from '../middlewrers/auth/auth.middleres';
 @Module({
   controllers: [MerchantOwnerController],
   providers: [MerchantOwnerService],
-  imports: [FirebaseModule]
+  imports: [FirebaseModule],
 })
 export class MerchantOwnerModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(AuthMiddleware)
-      .forRoutes(MerchantOwnerController);
+    consumer.apply(AuthMiddleware).forRoutes(MerchantOwnerController);
   }
 }

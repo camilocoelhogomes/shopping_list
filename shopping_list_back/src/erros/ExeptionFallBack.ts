@@ -1,14 +1,18 @@
-import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logger } from "@nestjs/common";
-import { HttpAdapterHost } from "@nestjs/core";
-import { InternalServerError } from "./custom-errors";
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpException,
+  Logger,
+} from '@nestjs/common';
+import { HttpAdapterHost } from '@nestjs/core';
+import { InternalServerError } from './custom-errors';
 
 @Catch()
 export class ExeptionFallBack implements ExceptionFilter {
-
   private readonly log = new Logger(ExeptionFallBack.name);
 
-
-  constructor(private readonly httpAdapterHost: HttpAdapterHost) { }
+  constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
 
   catch(e: any, host: ArgumentsHost) {
     const { httpAdapter } = this.httpAdapterHost;
@@ -20,13 +24,13 @@ export class ExeptionFallBack implements ExceptionFilter {
       error = e;
     } else {
       this.log.error(e, e.stack, httpAdapter.getRequestUrl(ctx.getRequest()));
-      error = new InternalServerError()
+      error = new InternalServerError();
     }
     const responseBody = {
       statusCode: error.getStatus(),
       timestamp: new Date().toISOString(),
       path: httpAdapter.getRequestUrl(ctx.getRequest()),
-      message: error.message
+      message: error.message,
     };
 
     httpAdapter.reply(ctx.getResponse(), responseBody, error.getStatus());
