@@ -1,12 +1,14 @@
 import 'reflect-metadata';
-import { NestFactory } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { ExeptionFallBack } from './erros/ExeptionFallBack';
 
 declare const module: any;
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
+  app.useGlobalFilters(new ExeptionFallBack(app.get(HttpAdapterHost)));
   await app.listen(3001);
   const config = new DocumentBuilder()
     .setTitle('Shopping List')

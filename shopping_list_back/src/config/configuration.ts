@@ -1,4 +1,4 @@
-import { Credential } from "firebase-admin/app";
+
 export const configuration = () => {
   console.log(process.env.FIRE_BASE_TYPE);
   return {
