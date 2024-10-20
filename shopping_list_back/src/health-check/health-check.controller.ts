@@ -9,7 +9,7 @@ export class HealthCheckController {
   @Get()
   @HttpCode(200)
   findAll(@Headers() headers: { origin: string, host: string }) {
-    this.log.log(JSON.stringify(headers));
-    return { message: "I'm a live", ...headers };
+    this.log.log(`Request from ${headers.origin} to ${headers.host}`);
+    return { message: "I'm a live" };
   }
 }
