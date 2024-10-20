@@ -6,16 +6,20 @@ import {
   Param,
   Delete,
   Headers,
+  Logger,
 } from '@nestjs/common';
 import { MerchantOwnerService } from './merchant-owner.service';
 import { UpdateMerchantOwnerDto } from './dto/update-merchant-owner.dto';
 
 @Controller('merchant-owner')
 export class MerchantOwnerController {
-  constructor(private readonly merchantOwnerService: MerchantOwnerService) {}
 
-  @Get(':id')
+  private readonly log = new Logger(MerchantOwnerController.name);
+  constructor(private readonly merchantOwnerService: MerchantOwnerService) { }
+
+  @Get()
   findOne(@Headers('uid') id: string) {
+    this.log.debug(`uid: ${id}`);
     return this.merchantOwnerService.findOne(+id);
   }
 

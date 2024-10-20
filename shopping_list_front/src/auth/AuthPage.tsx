@@ -13,6 +13,7 @@ export const AuthPage: React.FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const firebaseConfig = useContext(FirebaseContext);
+  const { getMerchantOwner } = useBackEndApi();
   const { alive } = useBackEndApi();
 
   const siginInWithGoogle = async () => {
@@ -20,6 +21,7 @@ export const AuthPage: React.FC = () => {
     firebaseConfig!.auth.useDeviceLanguage();
     const { user } = await signInWithPopup(firebaseConfig!.auth, googleSignIn);
     firebaseConfig!.setUser(user);
+    getMerchantOwner();
     dispatch(setUser({
       userId: user.uid,
       displayName: user.displayName ?? undefined,
