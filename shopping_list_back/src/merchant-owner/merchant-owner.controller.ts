@@ -11,11 +11,10 @@ import {
 import { MerchantOwnerService } from './merchant-owner.service';
 import { UpdateMerchantOwnerDto } from './dto/update-merchant-owner.dto';
 
-@Controller('merchant-owner')
+@Controller('admin/merchant-owner')
 export class MerchantOwnerController {
-
   private readonly log = new Logger(MerchantOwnerController.name);
-  constructor(private readonly merchantOwnerService: MerchantOwnerService) { }
+  constructor(private readonly merchantOwnerService: MerchantOwnerService) {}
 
   @Get()
   findOne(@Headers('uid') id: string) {
