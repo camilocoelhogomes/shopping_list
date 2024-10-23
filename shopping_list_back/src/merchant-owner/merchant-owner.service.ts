@@ -1,6 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateMerchantOwnerDto } from './dto/create-merchant-owner.dto';
-import { UpdateMerchantOwnerDto } from './dto/update-merchant-owner.dto';
 import { Repository } from 'typeorm';
 import { MerchantOwnerDiTokens } from './merchant-owner.ditokens';
 import { MerchantOwner } from './entities/merchant-owner.entity';
@@ -10,10 +8,18 @@ export class MerchantOwnerService {
   constructor(
     @Inject(MerchantOwnerDiTokens.MERCHANT_OWNER_REPOSITORY)
     private readonly merchantouOwnerRepository: Repository<MerchantOwner>,
-  ) {}
+  ) { }
 
-  create(createMerchantOwnerDto: CreateMerchantOwnerDto) {
-    return 'This action adds a new merchantOwner';
+  async create(createMerchantOwnerDto: Partial<MerchantOwner>) {
+    const merchantOwner = new MerchantOwner();
+    merchantOwner.email = createMerchantOwnerDto.email;
+    merchantOwner.displayName = createMerchantOwnerDto.displayName;
+    merchantOwner.documentNumber = createMerchantOwnerDto.documentNumber;
+    merchantOwner.phoneNumber = createMerchantOwnerDto.phoneNumber;
+    merchantOwner.title = createMerchantOwnerDto.title;
+    merchantOwner.userProviderId = createMerchantOwnerDto.userProviderId;
+    merchantOwner.preferredName = createMerchantOwnerDto.preferredName;
+    return this.merchantouOwnerRepository.save(merchantOwner);
   }
 
   findAll() {
@@ -24,7 +30,7 @@ export class MerchantOwnerService {
     return `This action returns a #${id} merchantOwner`;
   }
 
-  update(id: number, updateMerchantOwnerDto: UpdateMerchantOwnerDto) {
+  update(id: number, updateMerchantOwnerDto: Partial<MerchantOwner>) {
     return `This action updates a #${id} merchantOwner`;
   }
 

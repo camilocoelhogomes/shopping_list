@@ -7,14 +7,15 @@ import {
   Delete,
   Headers,
   Logger,
+  Post,
 } from '@nestjs/common';
 import { MerchantOwnerService } from './merchant-owner.service';
-import { UpdateMerchantOwnerDto } from './dto/update-merchant-owner.dto';
+import { MerchantOwner } from './entities/merchant-owner.entity';
 
 @Controller('admin/merchant-owner')
 export class MerchantOwnerController {
   private readonly log = new Logger(MerchantOwnerController.name);
-  constructor(private readonly merchantOwnerService: MerchantOwnerService) {}
+  constructor(private readonly merchantOwnerService: MerchantOwnerService) { }
 
   @Get()
   findOne(@Headers('uid') id: string) {
@@ -22,10 +23,16 @@ export class MerchantOwnerController {
     return this.merchantOwnerService.findOne(+id);
   }
 
+  @Post()
+  create(@Body() createMerchant: Partial<MerchantOwner>, @Headers('uid') uid: string) {
+
+    return this.merchantOwnerService.create({ ...createMerchant, userProviderId: uid });
+  }
+
   @Patch(':id')
   update(
     @Param('id') id: string,
-    @Body() updateMerchantOwnerDto: UpdateMerchantOwnerDto,
+    @Body() updateMerchantOwnerDto: Partial<MerchantOwner>,
   ) {
     return this.merchantOwnerService.update(+id, updateMerchantOwnerDto);
   }
