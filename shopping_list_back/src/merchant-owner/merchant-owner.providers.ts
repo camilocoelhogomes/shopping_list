@@ -1,6 +1,6 @@
 import { Provider } from "@nestjs/common";
 import { MerchantOwner } from "./entities/merchant-owner.entity";
-import { MerchantOwnerDiTokens } from "./MerchantOwnerDiTokens";
+import { MerchantOwnerDiTokens } from "./merchant-owner.ditokens";
 import { DatabaseDiTokens } from "../data-base/DatabaseDiTokens";
 
 export const merchantOwnerProviders: Provider[] = [

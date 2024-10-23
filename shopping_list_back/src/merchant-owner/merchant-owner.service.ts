@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { CreateMerchantOwnerDto } from './dto/create-merchant-owner.dto';
 import { UpdateMerchantOwnerDto } from './dto/update-merchant-owner.dto';
 import { DataSource, Repository } from 'typeorm';
-import { MerchantOwnerDiTokens } from './MerchantOwnerDiTokens';
+import { MerchantOwnerDiTokens } from './merchant-owner.ditokens';
 import { MerchantOwner } from './entities/merchant-owner.entity';
 
 @Injectable()
