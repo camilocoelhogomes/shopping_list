@@ -7,7 +7,7 @@ import { FirebaseService } from '../../firebase/firebase.service';
 export class AuthMiddleware implements NestMiddleware {
   private readonly log: Logger = new Logger(AuthMiddleware.name);
 
-  constructor(private readonly configService: FirebaseService) { }
+  constructor(private readonly configService: FirebaseService) {}
 
   async use(req: Request, res: Response, next: NextFunction) {
     try {

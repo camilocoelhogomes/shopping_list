@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ schema: 'merchant', name: 'merchant_owner' })
 export class MerchantOwner {
@@ -20,10 +20,19 @@ export class MerchantOwner {
   @Column({ type: 'varchar', length: 100, nullable: true, name: 'title' })
   title?: string;
 
-  @Column({ type: 'varchar', length: 100, nullable: true, name: 'preferred_name' })
+  @Column({
+    type: 'varchar',
+    length: 100,
+    nullable: true,
+    name: 'preferred_name',
+  })
   preferredName?: string;
 
-  @Column({ type: 'varchar', length: 50, nullable: true, name: 'document_number' })
+  @Column({
+    type: 'varchar',
+    length: 50,
+    nullable: true,
+    name: 'document_number',
+  })
   documentNumber?: string;
-
 }
