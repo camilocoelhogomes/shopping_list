@@ -15,5 +15,13 @@ export const configuration = () => {
       client_x509_cert_url: process.env.FIRE_BASE_CLIENT_X509_CERT_URL,
       universe_domain: process.env.FIRE_BASE_UNIVERSE_DOMAIN,
     },
+    dbConfig: {
+      type: process.env.DB_TYPE,
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT, 10),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+    }
   };
 };

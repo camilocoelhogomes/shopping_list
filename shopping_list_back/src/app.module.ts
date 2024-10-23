@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { FirebaseModule } from './firebase/firebase.module';
 import { configuration } from './config/configuration';
 import { MerchantOwnerModule } from './merchant-owner/merchant-owner.module';
+import { DataBaseModule } from './data-base/data-base.module';
 
 @Module({
   imports: [
@@ -15,8 +16,9 @@ import { MerchantOwnerModule } from './merchant-owner/merchant-owner.module';
     HealthCheckModule,
     FirebaseModule,
     MerchantOwnerModule,
+    DataBaseModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
