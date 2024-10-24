@@ -26,8 +26,8 @@ export class MerchantOwnerService {
     return `This action returns all merchantOwner`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} merchantOwner`;
+  findOne(userId: string) {
+    return this.merchantouOwnerRepository.findOneByOrFail({ userProviderId: userId });
   }
 
   update(id: number, updateMerchantOwnerDto: Partial<MerchantOwner>) {

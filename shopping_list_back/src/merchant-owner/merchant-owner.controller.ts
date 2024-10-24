@@ -19,8 +19,7 @@ export class MerchantOwnerController {
 
   @Get()
   findOne(@Headers('uid') id: string) {
-    this.log.debug(`uid: ${id}`);
-    return this.merchantOwnerService.findOne(+id);
+    return this.merchantOwnerService.findOne(id);
   }
 
   @Post()
