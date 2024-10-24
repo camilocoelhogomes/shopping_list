@@ -7,9 +7,11 @@ services:
   app: 
     build: 
       context: ./shopping_list_back
-      dockerfile: ./dockerfile
+      dockerfile: ./Dockerfile
     hostname: app
     restart: always
+    environment:
+      - NODE_ENV=back
     ports:
       - 3001:3001
     depends_on:

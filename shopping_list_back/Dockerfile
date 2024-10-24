@@ -31,6 +31,6 @@ RUN npm install --only=production
 
 # Expose the application port (change if necessary)
 EXPOSE 3001
-
+# Set the NODE_ENV environment variable
 # Command to run the application
 CMD ["node", "dist/index.js"]
