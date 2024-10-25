@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   entry: './src/main.ts', // Adjust the entry file accordingly
   target: 'node',
-  mode:"production",
+  mode: "production",
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'index.js',
@@ -19,5 +19,6 @@ module.exports = {
         use: 'ts-loader',
       },
     ],
-  }
+  },
+  devtool: 'source-map',
 }; 
