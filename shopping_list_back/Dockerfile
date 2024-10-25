@@ -25,12 +25,13 @@ WORKDIR /app
 # Copy only the necessary files from the build stage
 COPY --from=build /app/dist ./dist
 COPY --from=build /app/package*.json ./
-
+COPY --from=build /app/.env.back ./
 # Install only production dependencies
 RUN npm install --only=production
 
 # Expose the application port (change if necessary)
 EXPOSE 3001
 # Set the NODE_ENV environment variable
+ENV NODE_ENV=back
 # Command to run the application
 CMD ["node", "dist/index.js"]

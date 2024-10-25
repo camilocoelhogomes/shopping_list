@@ -21,9 +21,6 @@ export const useAuth = () => {
     }
   }
 
-  useEffect(() => {
-    history.push("/auth")
-  }, [firebase?.user]);
 
 
   return { getToken, user: firebase?.user };

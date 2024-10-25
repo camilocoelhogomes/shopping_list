@@ -5,9 +5,7 @@ import { FirebaseContext } from "../../firebase/FirebaseContext";
 import { useAppDispatch, useAppSelector } from "../../store/hook";
 import { setUser } from "../../store/store_slice/userSlice";
 import { TreatmentStep } from "./steps/TreatmentStep";
-import { DocumentStep } from "./steps/DocumentStep";
 import { useHistory } from "react-router";
-import { AddressStep } from "./steps/AddressStep";
 
 export const OnboardingUser: React.FC = () => {
 
@@ -35,8 +33,6 @@ export const OnboardingUser: React.FC = () => {
           </IonText>
         </IonItem>
         <TreatmentStep />
-        <DocumentStep />
-        <AddressStep />
       </IonContent>
     </IonPage>
   )

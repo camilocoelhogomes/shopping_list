@@ -21,9 +21,8 @@ export const AuthPage: React.FC = () => {
     firebaseConfig!.auth.useDeviceLanguage();
     const { user } = await signInWithPopup(firebaseConfig!.auth, googleSignIn);
     firebaseConfig!.setUser(user);
-    getMerchantOwner();
     dispatch(setUser({
-      userId: user.uid,
+      userProviderId: user.uid,
       displayName: user.displayName ?? undefined,
       email: user.email ?? undefined,
       photoURL: user.photoURL ?? undefined,

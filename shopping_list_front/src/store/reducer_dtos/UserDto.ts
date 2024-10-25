@@ -13,13 +13,13 @@ export interface UserAddress {
 }
 
 export interface UserDto {
-  userId: string,
-  displayName: string,
-  email: string,
-  phoneNumber: string,
-  photoURL: string
-  title: string,
-  preferredName: string,
-  document: Partial<UserDocumentDto>,
-  address: Partial<UserAddress>
+  userId: number;
+  userProviderId: string;
+  displayName: string;
+  email: string;
+  photoURL?: string;
+  phoneNumber?: string;
+  title?: string;
+  preferredName?: string;
+  documentNumber?: string;
 }
