@@ -1,10 +1,13 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { Repository } from 'typeorm';
+import { ConflictException, Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Not, Repository } from 'typeorm';
 import { MerchantOwnerDiTokens } from './merchant-owner.ditokens';
 import { MerchantOwner } from './entities/merchant-owner.entity';
 
 @Injectable()
 export class MerchantOwnerService {
+
+  private readonly logger = new Logger(MerchantOwnerService.name);
+
   constructor(
     @Inject(MerchantOwnerDiTokens.MERCHANT_OWNER_REPOSITORY)
     private readonly merchantouOwnerRepository: Repository<MerchantOwner>,
@@ -19,23 +22,33 @@ export class MerchantOwnerService {
     merchantOwner.title = createMerchantOwnerDto.title;
     merchantOwner.userProviderId = createMerchantOwnerDto.userProviderId;
     merchantOwner.preferredName = createMerchantOwnerDto.preferredName;
-    return this.merchantouOwnerRepository.save(merchantOwner);
+    try {
+      return await this.merchantouOwnerRepository.save(merchantOwner);
+    } catch (error) {
+      this.logger.error(error);
+      if (error.code === '23505') {
+        throw new ConflictException('Usuário já cadastrado');
+      }
+    }
   }
 
-  findAll() {
-    return `This action returns all merchantOwner`;
-  }
 
   findOne(userId: string) {
-    return this.merchantouOwnerRepository.findOneByOrFail({
-      userProviderId: userId,
-    });
+    try {
+      return this.merchantouOwnerRepository.findOneByOrFail({
+        userProviderId: userId,
+      });
+    } catch (error) {
+      throw new NotFoundException('Usuário não encontrado');
+    }
+
   }
 
-  update(updateMerchantOwnerDto: Partial<MerchantOwner>) {
-    return this.merchantouOwnerRepository.update(
+  async update(updateMerchantOwnerDto: Partial<MerchantOwner>) {
+    await this.merchantouOwnerRepository.update(
       { userProviderId: updateMerchantOwnerDto.userProviderId },
       updateMerchantOwnerDto,
     );
+    return;
   }
 }
