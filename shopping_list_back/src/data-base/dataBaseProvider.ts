@@ -9,7 +9,10 @@ export const databaseProvider: Provider[] = [
     provide: DatabaseDiTokens.DATA_SOURCE,
     useFactory: async (configService: ConfigService) => {
       const dbConfig = configService.get('dbConfig');
-      const dataSource: DataSource = new DataSource({ ...dbConfig, entities: [MerchantOwner] });
+      const dataSource: DataSource = new DataSource({
+        ...dbConfig,
+        entities: [MerchantOwner],
+      });
 
       await dataSource.initialize();
       return dataSource;

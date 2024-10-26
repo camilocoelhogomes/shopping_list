@@ -23,21 +23,25 @@ export class MerchantOwnerController {
   }
 
   @Post()
-  create(@Body() createMerchant: Partial<MerchantOwner>, @Headers('uid') uid: string) {
-
-    return this.merchantOwnerService.create({ ...createMerchant, userProviderId: uid });
+  create(
+    @Body() createMerchant: Partial<MerchantOwner>,
+    @Headers('uid') uid: string,
+  ) {
+    return this.merchantOwnerService.create({
+      ...createMerchant,
+      userProviderId: uid,
+    });
   }
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Headers('uid') uid: string,
     @Body() updateMerchantOwnerDto: Partial<MerchantOwner>,
   ) {
-    return this.merchantOwnerService.update(+id, updateMerchantOwnerDto);
+    return this.merchantOwnerService.update({
+      ...updateMerchantOwnerDto,
+      userProviderId: uid,
+    });
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.merchantOwnerService.remove(+id);
-  }
 }

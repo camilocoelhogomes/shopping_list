@@ -27,14 +27,15 @@ export class MerchantOwnerService {
   }
 
   findOne(userId: string) {
-    return this.merchantouOwnerRepository.findOneByOrFail({ userProviderId: userId });
+    return this.merchantouOwnerRepository.findOneByOrFail({
+      userProviderId: userId,
+    });
   }
 
-  update(id: number, updateMerchantOwnerDto: Partial<MerchantOwner>) {
-    return `This action updates a #${id} merchantOwner`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} merchantOwner`;
+  update(updateMerchantOwnerDto: Partial<MerchantOwner>) {
+    return this.merchantouOwnerRepository.update(
+      { userProviderId: updateMerchantOwnerDto.userProviderId },
+      updateMerchantOwnerDto,
+    );
   }
 }
