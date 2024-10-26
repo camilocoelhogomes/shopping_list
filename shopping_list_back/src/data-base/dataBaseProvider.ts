@@ -3,6 +3,7 @@ import { DataSource } from 'typeorm';
 import { DatabaseDiTokens } from './DatabaseDiTokens';
 import { ConfigService } from '@nestjs/config';
 import { MerchantOwner } from '../merchant-owner/entities/merchant-owner.entity';
+import { Merchant } from '../merchant-admin/entities/merchant.entity';
 
 export const databaseProvider: Provider[] = [
   {
@@ -11,7 +12,7 @@ export const databaseProvider: Provider[] = [
       const dbConfig = configService.get('dbConfig');
       const dataSource: DataSource = new DataSource({
         ...dbConfig,
-        entities: [MerchantOwner],
+        entities: [MerchantOwner, Merchant],
       });
 
       await dataSource.initialize();

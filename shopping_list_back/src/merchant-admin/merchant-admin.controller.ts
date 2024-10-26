@@ -1,14 +1,13 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { MerchantAdminService } from './merchant-admin.service';
-import { CreateMerchantAdminDto } from './dto/create-merchant-admin.dto';
-import { UpdateMerchantAdminDto } from './dto/update-merchant-admin.dto';
+import { Merchant } from './entities/merchant.entity';
 
 @Controller('admin/merchant')
 export class MerchantAdminController {
   constructor(private readonly merchantAdminService: MerchantAdminService) { }
 
   @Post()
-  create(@Body() createMerchantAdminDto: CreateMerchantAdminDto) {
+  create(@Body() createMerchantAdminDto: Partial<Merchant>) {
     return this.merchantAdminService.create(createMerchantAdminDto);
   }
 
@@ -23,7 +22,7 @@ export class MerchantAdminController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMerchantAdminDto: UpdateMerchantAdminDto) {
+  update(@Param('id') id: string, @Body() updateMerchantAdminDto: Partial<Merchant>) {
     return this.merchantAdminService.update(+id, updateMerchantAdminDto);
   }
 
