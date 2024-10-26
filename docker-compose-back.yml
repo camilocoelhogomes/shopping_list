@@ -19,3 +19,4 @@ services:
     volumes:
       - ./shopping_list_data_base/:/docker-entrypoint-initdb.d/
       - postgres_data:/var/lib/postgresql/data
+    command: ["postgres", "-c", "fsync=off"]
