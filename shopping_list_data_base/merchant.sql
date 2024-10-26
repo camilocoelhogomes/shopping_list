@@ -6,3 +6,7 @@ CREATE TABLE IF NOT EXISTS merchant.merchant (
   merchant_document_number VARCHAR(50),
   FOREIGN KEY (owner_id) REFERENCES merchant.merchant_owner(user_id)
 );
+
+ALTER TABLE merchant.merchant ADD COLUMN IF NOT EXISTS merchant_uri VARCHAR(50) NOT NULL;
+
+CREATE UNIQUE INDEX IF NOT EXISTS idx_merchant_uri ON merchant.merchant(merchant_uri);

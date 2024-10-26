@@ -1,13 +1,18 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { MerchantAdminService } from './merchant-admin.service';
 import { MerchantAdminController } from './merchant-admin.controller';
 import { FirebaseModule } from '../firebase/firebase.module';
 import { DataBaseModule } from '../data-base/data-base.module';
 import { merchantAdminProviders } from './merchant-admin.providers';
+import { AuthMiddleware } from '../middlewrers/auth/auth.middleres';
 
 @Module({
   controllers: [MerchantAdminController],
   providers: [...merchantAdminProviders, MerchantAdminService],
   imports: [FirebaseModule, DataBaseModule]
 })
-export class MerchantAdminModule { }
+export class MerchantAdminModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(AuthMiddleware).forRoutes(MerchantAdminController);
+  }
+}

@@ -5,7 +5,6 @@ import { FirebaseModule } from './firebase/firebase.module';
 import { configuration } from './config/configuration';
 import { MerchantOwnerModule } from './merchant-owner/merchant-owner.module';
 import { DataBaseModule } from './data-base/data-base.module';
-import { MerchantModule } from './merchant/merchant.module';
 import { MerchantAdminModule } from './merchant-admin/merchant-admin.module';
 
 @Module({
@@ -19,10 +18,9 @@ import { MerchantAdminModule } from './merchant-admin/merchant-admin.module';
     FirebaseModule,
     MerchantOwnerModule,
     DataBaseModule,
-    MerchantModule,
     MerchantAdminModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }
