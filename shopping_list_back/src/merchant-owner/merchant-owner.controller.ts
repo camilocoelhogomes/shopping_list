@@ -33,7 +33,7 @@ export class MerchantOwnerController {
     });
   }
 
-  @Patch(':id')
+  @Patch()
   update(
     @Headers('uid') uid: string,
     @Body() updateMerchantOwnerDto: Partial<MerchantOwner>,
