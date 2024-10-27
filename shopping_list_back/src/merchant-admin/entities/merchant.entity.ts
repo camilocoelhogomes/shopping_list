@@ -1,4 +1,11 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, Index } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  JoinColumn,
+  Index,
+} from 'typeorm';
 import { MerchantOwner } from '../../merchant-owner/entities/merchant-owner.entity';
 
 @Entity({ schema: 'merchant', name: 'merchant' })
@@ -13,10 +20,20 @@ export class Merchant {
   @Column({ type: 'bigint', name: 'owner_id' })
   ownerId: number;
 
-  @Column({ type: 'varchar', length: 20, name: 'merchant_phone_number', nullable: true })
+  @Column({
+    type: 'varchar',
+    length: 20,
+    name: 'merchant_phone_number',
+    nullable: true,
+  })
   merchantPhoneNumber?: string;
 
-  @Column({ type: 'varchar', length: 50, name: 'merchant_document_number', nullable: true })
+  @Column({
+    type: 'varchar',
+    length: 50,
+    name: 'merchant_document_number',
+    nullable: true,
+  })
   merchantDocumentNumber?: string;
 
   @Column({ type: 'varchar', length: 50, name: 'merchant_uri' })

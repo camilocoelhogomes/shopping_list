@@ -1,17 +1,22 @@
-import { ConflictException, Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
-import { Not, Repository } from 'typeorm';
+import {
+  ConflictException,
+  Inject,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
+import { Repository } from 'typeorm';
 import { MerchantOwnerDiTokens } from './merchant-owner.ditokens';
 import { MerchantOwner } from './entities/merchant-owner.entity';
 
 @Injectable()
 export class MerchantOwnerService {
-
   private readonly logger = new Logger(MerchantOwnerService.name);
 
   constructor(
     @Inject(MerchantOwnerDiTokens.MERCHANT_OWNER_REPOSITORY)
     private readonly merchantouOwnerRepository: Repository<MerchantOwner>,
-  ) { }
+  ) {}
 
   async create(createMerchantOwnerDto: Partial<MerchantOwner>) {
     const merchantOwner = new MerchantOwner();
@@ -32,7 +37,6 @@ export class MerchantOwnerService {
     }
   }
 
-
   findOne(userId: string) {
     try {
       return this.merchantouOwnerRepository.findOneByOrFail({
@@ -41,7 +45,6 @@ export class MerchantOwnerService {
     } catch (error) {
       throw new NotFoundException('Usuário não encontrado');
     }
-
   }
 
   async update(updateMerchantOwnerDto: Partial<MerchantOwner>) {

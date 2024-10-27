@@ -1,11 +1,38 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Merchant } from './entities/merchant.entity';
-
+import { MerchantAdminDiTokens } from './merchat-admin.ditokens';
+import { Repository } from 'typeorm';
+import { MerchantOwner } from '../merchant-owner/entities/merchant-owner.entity';
+import { MerchantOwnerDiTokens } from '../merchant-owner/merchant-owner.ditokens';
 
 @Injectable()
 export class MerchantAdminService {
-  create(createMerchantAdminDto: Partial<Merchant>) {
-    return 'This action adds a new merchantAdmin';
+  private readonly log = new Logger(MerchantAdminService.name);
+
+  constructor(
+    @Inject(MerchantAdminDiTokens.MERCHANT_ADMIN_REPOSITORY)
+    private readonly merchantRepositoty: Repository<Merchant>,
+    @Inject(MerchantOwnerDiTokens.MERCHANT_OWNER_REPOSITORY)
+    private readonly merchantOwnerRepository: Repository<MerchantOwner>,
+  ) {}
+
+  async create(createMerchantAdminDto: Partial<Merchant>, uid: string) {
+    try {
+      const merchantOwner = await this.merchantOwnerRepository.findOne({
+        where: { userProviderId: uid },
+      });
+      if (!merchantOwner) {
+        throw new NotFoundException('Merchant owner not found');
+      }
+      const merchant = this.merchantRepositoty.create({
+        ...createMerchantAdminDto,
+        owner: merchantOwner,
+      });
+      return 'This action adds a new merchantAdmin';
+    } catch (error) {
+      this.log.error(error);
+      throw error;
+    }
   }
 
   findAll() {

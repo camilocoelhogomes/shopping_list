@@ -9,7 +9,7 @@ import { AuthMiddleware } from '../middlewrers/auth/auth.middleres';
 @Module({
   controllers: [MerchantAdminController],
   providers: [...merchantAdminProviders, MerchantAdminService],
-  imports: [FirebaseModule, DataBaseModule]
+  imports: [FirebaseModule, DataBaseModule],
 })
 export class MerchantAdminModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
