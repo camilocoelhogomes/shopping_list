@@ -12,7 +12,7 @@ import { Merchant } from './entities/merchant.entity';
 
 @Controller('admin/merchant')
 export class MerchantAdminController {
-  constructor(private readonly merchantAdminService: MerchantAdminService) {}
+  constructor(private readonly merchantAdminService: MerchantAdminService) { }
 
   @Post()
   create(
@@ -35,8 +35,9 @@ export class MerchantAdminController {
   @Patch(':id')
   update(
     @Param('id') id: string,
+    @Headers('uid') uid: string,
     @Body() updateMerchantAdminDto: Partial<Merchant>,
   ) {
-    return this.merchantAdminService.update(+id, updateMerchantAdminDto);
+    return this.merchantAdminService.update(+id, uid, updateMerchantAdminDto);
   }
 }

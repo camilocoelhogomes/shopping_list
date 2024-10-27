@@ -1,10 +1,10 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { MerchantAdminService } from './merchant-admin.service';
 import { MerchantAdminController } from './merchant-admin.controller';
-import { FirebaseModule } from '../firebase/firebase.module';
-import { DataBaseModule } from '../data-base/data-base.module';
+import { FirebaseModule } from '../../firebase/firebase.module';
+import { DataBaseModule } from '../../data-base/data-base.module';
 import { merchantAdminProviders } from './merchant-admin.providers';
-import { AuthMiddleware } from '../middlewrers/auth/auth.middleres';
+import { AuthMiddleware } from '../../middlewrers/auth/auth.middleres';
 import { MerchantOwnerModule } from '../merchant-owner/merchant-owner.module';
 
 @Module({

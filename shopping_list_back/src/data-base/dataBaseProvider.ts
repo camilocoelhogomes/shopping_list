@@ -2,8 +2,8 @@ import { Provider } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 import { DatabaseDiTokens } from './DatabaseDiTokens';
 import { ConfigService } from '@nestjs/config';
-import { MerchantOwner } from '../merchant-owner/entities/merchant-owner.entity';
-import { Merchant } from '../merchant-admin/entities/merchant.entity';
+import { MerchantOwner } from '../routes/merchant-owner/entities/merchant-owner.entity';
+import { Merchant } from '../routes/merchant-admin/entities/merchant.entity';
 
 export const databaseProvider: Provider[] = [
   {

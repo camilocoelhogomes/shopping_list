@@ -20,7 +20,7 @@ export class MerchantAdminService {
     private readonly merchantRepositoty: Repository<Merchant>,
     @Inject(MerchantOwnerDiTokens.MERCHANT_OWNER_REPOSITORY)
     private readonly merchantOwnerRepository: Repository<MerchantOwner>,
-  ) {}
+  ) { }
 
   async create(createMerchantAdminDto: Partial<Merchant>, uid: string) {
     try {
@@ -84,21 +84,28 @@ export class MerchantAdminService {
     }
   }
 
-  async update(id: number, updateMerchantAdminDto: Partial<Merchant>) {
+  async update(id: number, uid: string, updateMerchantAdminDto: Partial<Merchant>) {
     try {
-      return await this.merchantRepositoty.update(
-        { merchantId: id },
+      const merchantOwner = await this.merchantOwnerRepository.findOne({
+        where: { userProviderId: uid },
+      });
+      if (!merchantOwner) {
+        throw new NotFoundException('Merchant owner not found');
+      }
+      const result = await this.merchantRepositoty.update(
+        { merchantId: id, owner: merchantOwner },
         updateMerchantAdminDto,
       );
+      if (result.affected === 0) {
+        throw new NotFoundException('Merchant not found');
+      }
     } catch (error) {
       if (error instanceof QueryFailedError) {
         if (error.message.includes('violates unique constraint')) {
           throw new NotFoundException('Merchant not found');
         }
-        this.log.error(error);
-        throw error;
       }
-      this.log.error(error);
+      throw error;
     }
   }
 }
