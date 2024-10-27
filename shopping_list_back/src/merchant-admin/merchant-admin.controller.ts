@@ -5,7 +5,6 @@ import {
   Body,
   Patch,
   Param,
-  Delete,
   Headers,
 } from '@nestjs/common';
 import { MerchantAdminService } from './merchant-admin.service';
@@ -24,13 +23,13 @@ export class MerchantAdminController {
   }
 
   @Get()
-  findAll() {
-    return this.merchantAdminService.findAll();
+  findAll(@Headers('uid') uid: string) {
+    return this.merchantAdminService.findAll(uid);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.merchantAdminService.findOne(+id);
+    return this.merchantAdminService.findOne(Number(id));
   }
 
   @Patch(':id')
@@ -39,10 +38,5 @@ export class MerchantAdminController {
     @Body() updateMerchantAdminDto: Partial<Merchant>,
   ) {
     return this.merchantAdminService.update(+id, updateMerchantAdminDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.merchantAdminService.remove(+id);
   }
 }

@@ -54,19 +54,51 @@ export class MerchantAdminService {
     }
   }
 
-  findAll() {
-    return `This action returns all merchantAdmin`;
+  async findAll(uid: string) {
+    const merchants = await this.merchantRepositoty.find({
+      where: { owner: { userProviderId: uid } },
+    });
+    return merchants.map((m) => ({
+      merchantId: m.merchantId,
+      merchantName: m.merchantName,
+      merchantUri: m.merchantUri,
+    }));
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} merchantAdmin`;
+    try {
+      const merchant = this.merchantRepositoty.findOneOrFail({
+        where: { merchantId: id },
+      });
+      return merchant;
+    } catch (error) {
+      if (error instanceof QueryFailedError) {
+        if (error.message.includes('violates unique constraint')) {
+          throw new NotFoundException('Merchant not found');
+        }
+        this.log.error(error);
+        throw error;
+      }
+      this.log.error(error);
+      throw error;
+    }
   }
 
-  update(id: number, updateMerchantAdminDto: Partial<Merchant>) {
-    return `This action updates a #${id} merchantAdmin`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} merchantAdmin`;
+  async update(id: number, updateMerchantAdminDto: Partial<Merchant>) {
+    try {
+      return await this.merchantRepositoty.update(
+        { merchantId: id },
+        updateMerchantAdminDto,
+      );
+    } catch (error) {
+      if (error instanceof QueryFailedError) {
+        if (error.message.includes('violates unique constraint')) {
+          throw new NotFoundException('Merchant not found');
+        }
+        this.log.error(error);
+        throw error;
+      }
+      this.log.error(error);
+    }
   }
 }
