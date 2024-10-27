@@ -23,4 +23,4 @@ import { MerchantAdminModule } from './routes/merchant-admin/merchant-admin.modu
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

@@ -19,7 +19,7 @@ export class MerchantAdminService {
     private readonly merchantRepositoty: Repository<Merchant>,
     @Inject(DatabaseDiTokens.MERCHANT_OWNER_REPOSITORY)
     private readonly merchantOwnerRepository: Repository<MerchantOwner>,
-  ) { }
+  ) {}
 
   async create(createMerchantAdminDto: Partial<Merchant>, uid: string) {
     try {
@@ -83,7 +83,11 @@ export class MerchantAdminService {
     }
   }
 
-  async update(id: number, uid: string, updateMerchantAdminDto: Partial<Merchant>) {
+  async update(
+    id: number,
+    uid: string,
+    updateMerchantAdminDto: Partial<Merchant>,
+  ) {
     try {
       const merchantOwner = await this.merchantOwnerRepository.findOne({
         where: { userProviderId: uid },

@@ -8,7 +8,7 @@ import { DataBaseModule } from '../../data-base/data-base.module';
 @Module({
   controllers: [MerchantOwnerController],
   providers: [MerchantOwnerService],
-  imports: [FirebaseModule, DataBaseModule]
+  imports: [FirebaseModule, DataBaseModule],
 })
 export class MerchantOwnerModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

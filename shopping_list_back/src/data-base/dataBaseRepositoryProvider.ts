@@ -1,8 +1,8 @@
-import { Provider } from "@nestjs/common";
-import { DatabaseDiTokens } from "./DatabaseDiTokens";
-import { DataSource } from "typeorm";
-import { Merchant } from "../routes/merchant-admin/entities/merchant.entity";
-import { MerchantOwner } from "../routes/merchant-owner/entities/merchant-owner.entity";
+import { Provider } from '@nestjs/common';
+import { DatabaseDiTokens } from './DatabaseDiTokens';
+import { DataSource } from 'typeorm';
+import { Merchant } from '../routes/merchant-admin/entities/merchant.entity';
+import { MerchantOwner } from '../routes/merchant-owner/entities/merchant-owner.entity';
 
 export const dataBaseRepositoryProvider: Provider[] = [
   {
@@ -12,7 +12,8 @@ export const dataBaseRepositoryProvider: Provider[] = [
   },
   {
     provide: DatabaseDiTokens.MERCHANT_OWNER_REPOSITORY,
-    useFactory: (dataSource: DataSource) => dataSource.getRepository(MerchantOwner),
+    useFactory: (dataSource: DataSource) =>
+      dataSource.getRepository(MerchantOwner),
     inject: [DatabaseDiTokens.DATA_SOURCE],
   },
-]
+];
