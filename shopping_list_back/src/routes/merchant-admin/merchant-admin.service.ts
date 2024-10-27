@@ -19,7 +19,7 @@ export class MerchantAdminService {
     private readonly merchantRepositoty: Repository<Merchant>,
     @Inject(DatabaseDiTokens.MERCHANT_OWNER_REPOSITORY)
     private readonly merchantOwnerRepository: Repository<MerchantOwner>,
-  ) {}
+  ) { }
 
   async create(createMerchantAdminDto: Partial<Merchant>, uid: string) {
     try {
@@ -89,14 +89,8 @@ export class MerchantAdminService {
     updateMerchantAdminDto: Partial<Merchant>,
   ) {
     try {
-      const merchantOwner = await this.merchantOwnerRepository.findOne({
-        where: { userProviderId: uid },
-      });
-      if (!merchantOwner) {
-        throw new NotFoundException('Merchant owner not found');
-      }
       const result = await this.merchantRepositoty.update(
-        { merchantId: id, owner: merchantOwner },
+        { merchantId: id, owner: { userProviderId: uid } },
         updateMerchantAdminDto,
       );
       if (result.affected === 0) {
