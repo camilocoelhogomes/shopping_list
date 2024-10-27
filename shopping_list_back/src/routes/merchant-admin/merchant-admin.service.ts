@@ -6,19 +6,18 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Merchant } from './entities/merchant.entity';
-import { MerchantAdminDiTokens } from './merchat-admin.ditokens';
 import { QueryFailedError, Repository } from 'typeorm';
 import { MerchantOwner } from '../merchant-owner/entities/merchant-owner.entity';
-import { MerchantOwnerDiTokens } from '../merchant-owner/merchant-owner.ditokens';
+import { DatabaseDiTokens } from '../../data-base/DatabaseDiTokens';
 
 @Injectable()
 export class MerchantAdminService {
   private readonly log = new Logger(MerchantAdminService.name);
 
   constructor(
-    @Inject(MerchantAdminDiTokens.MERCHANT_ADMIN_REPOSITORY)
+    @Inject(DatabaseDiTokens.MERCHANT_REPOSITORY)
     private readonly merchantRepositoty: Repository<Merchant>,
-    @Inject(MerchantOwnerDiTokens.MERCHANT_OWNER_REPOSITORY)
+    @Inject(DatabaseDiTokens.MERCHANT_OWNER_REPOSITORY)
     private readonly merchantOwnerRepository: Repository<MerchantOwner>,
   ) { }
 

@@ -1,3 +1,0 @@
-export enum MerchantAdminDiTokens {
-  MERCHANT_ADMIN_REPOSITORY = 'MERCHANT_ADMIN_REPOSITORY',
-}

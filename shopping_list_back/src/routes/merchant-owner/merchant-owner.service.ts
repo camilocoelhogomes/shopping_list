@@ -6,17 +6,17 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { MerchantOwnerDiTokens } from './merchant-owner.ditokens';
 import { MerchantOwner } from './entities/merchant-owner.entity';
+import { DatabaseDiTokens } from '../../data-base/DatabaseDiTokens';
 
 @Injectable()
 export class MerchantOwnerService {
   private readonly logger = new Logger(MerchantOwnerService.name);
 
   constructor(
-    @Inject(MerchantOwnerDiTokens.MERCHANT_OWNER_REPOSITORY)
+    @Inject(DatabaseDiTokens.MERCHANT_OWNER_REPOSITORY)
     private readonly merchantouOwnerRepository: Repository<MerchantOwner>,
-  ) {}
+  ) { }
 
   async create(createMerchantOwnerDto: Partial<MerchantOwner>) {
     const merchantOwner = new MerchantOwner();
