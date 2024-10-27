@@ -5,11 +5,12 @@ import { FirebaseModule } from '../firebase/firebase.module';
 import { DataBaseModule } from '../data-base/data-base.module';
 import { merchantAdminProviders } from './merchant-admin.providers';
 import { AuthMiddleware } from '../middlewrers/auth/auth.middleres';
+import { MerchantOwnerModule } from '../merchant-owner/merchant-owner.module';
 
 @Module({
   controllers: [MerchantAdminController],
   providers: [...merchantAdminProviders, MerchantAdminService],
-  imports: [FirebaseModule, DataBaseModule],
+  imports: [FirebaseModule, DataBaseModule, MerchantOwnerModule],
 })
 export class MerchantAdminModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

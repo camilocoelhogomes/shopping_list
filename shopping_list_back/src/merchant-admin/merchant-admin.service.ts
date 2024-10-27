@@ -1,7 +1,7 @@
-import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { ConflictException, Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Merchant } from './entities/merchant.entity';
 import { MerchantAdminDiTokens } from './merchat-admin.ditokens';
-import { Repository } from 'typeorm';
+import { QueryFailedError, Repository } from 'typeorm';
 import { MerchantOwner } from '../merchant-owner/entities/merchant-owner.entity';
 import { MerchantOwnerDiTokens } from '../merchant-owner/merchant-owner.ditokens';
 
@@ -14,7 +14,7 @@ export class MerchantAdminService {
     private readonly merchantRepositoty: Repository<Merchant>,
     @Inject(MerchantOwnerDiTokens.MERCHANT_OWNER_REPOSITORY)
     private readonly merchantOwnerRepository: Repository<MerchantOwner>,
-  ) {}
+  ) { }
 
   async create(createMerchantAdminDto: Partial<Merchant>, uid: string) {
     try {
@@ -24,13 +24,18 @@ export class MerchantAdminService {
       if (!merchantOwner) {
         throw new NotFoundException('Merchant owner not found');
       }
-      const merchant = this.merchantRepositoty.create({
+      const merchant = await this.merchantRepositoty.save(this.merchantRepositoty.create({
         ...createMerchantAdminDto,
         owner: merchantOwner,
-      });
-      return 'This action adds a new merchantAdmin';
+      }));
+      return { id: merchant.merchantId };
     } catch (error) {
-      this.log.error(error);
+      if (error instanceof QueryFailedError) {
+        if (error.message.includes('duplicate key value violates unique constraint')) {
+          throw new ConflictException('Merchant Uri já cadastrado');
+        }
+        throw error;
+      }
       throw error;
     }
   }
