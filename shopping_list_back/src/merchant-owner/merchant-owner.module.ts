@@ -10,7 +10,7 @@ import { merchantOwnerProviders } from './merchant-owner.providers';
   controllers: [MerchantOwnerController],
   providers: [...merchantOwnerProviders, MerchantOwnerService],
   imports: [FirebaseModule, DataBaseModule],
-  exports: [...merchantOwnerProviders]
+  exports: [...merchantOwnerProviders],
 })
 export class MerchantOwnerModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
