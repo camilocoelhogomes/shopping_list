@@ -6,7 +6,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Repository } from 'typeorm';
-import { MerchantOwner } from './entities/merchant-owner.entity';
+import { MerchantOwner } from '../../data-base/entity/merchant-owner.entity';
 import { DatabaseDiTokens } from '../../data-base/DatabaseDiTokens';
 
 @Injectable()
@@ -16,7 +16,7 @@ export class MerchantOwnerService {
   constructor(
     @Inject(DatabaseDiTokens.MERCHANT_OWNER_REPOSITORY)
     private readonly merchantouOwnerRepository: Repository<MerchantOwner>,
-  ) {}
+  ) { }
 
   async create(createMerchantOwnerDto: Partial<MerchantOwner>) {
     const merchantOwner = new MerchantOwner();

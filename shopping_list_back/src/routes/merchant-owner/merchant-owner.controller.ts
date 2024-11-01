@@ -8,12 +8,12 @@ import {
   Post,
 } from '@nestjs/common';
 import { MerchantOwnerService } from './merchant-owner.service';
-import { MerchantOwner } from './entities/merchant-owner.entity';
+import { MerchantOwner } from '../../data-base/entity/merchant-owner.entity';
 
 @Controller('admin/merchant-owner')
 export class MerchantOwnerController {
   private readonly log = new Logger(MerchantOwnerController.name);
-  constructor(private readonly merchantOwnerService: MerchantOwnerService) {}
+  constructor(private readonly merchantOwnerService: MerchantOwnerService) { }
 
   @Get()
   findOne(@Headers('uid') id: string) {

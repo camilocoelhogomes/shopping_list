@@ -6,7 +6,8 @@ import { configuration } from './config/configuration';
 import { MerchantOwnerModule } from './routes/merchant-owner/merchant-owner.module';
 import { DataBaseModule } from './data-base/data-base.module';
 import { MerchantAdminModule } from './routes/merchant-admin/merchant-admin.module';
-import { AisleAdminModule } from './aisle-admin/aisle-admin.module';
+import { AisleAdminModule } from './routes/aisle-admin/aisle-admin.module';
+import { MiddlewrersModule } from './middlewrers/middlewrers.module';
 
 @Module({
   imports: [
@@ -21,8 +22,9 @@ import { AisleAdminModule } from './aisle-admin/aisle-admin.module';
     DataBaseModule,
     MerchantAdminModule,
     AisleAdminModule,
+    MiddlewrersModule,
   ],
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }

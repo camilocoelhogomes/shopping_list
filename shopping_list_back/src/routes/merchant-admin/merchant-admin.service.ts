@@ -5,10 +5,10 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { Merchant } from './entities/merchant.entity';
 import { QueryFailedError, Repository } from 'typeorm';
-import { MerchantOwner } from '../merchant-owner/entities/merchant-owner.entity';
+import { MerchantOwner } from '../../data-base/entity/merchant-owner.entity';
 import { DatabaseDiTokens } from '../../data-base/DatabaseDiTokens';
+import { Merchant } from '../../data-base/entity/merchant.entity';
 
 @Injectable()
 export class MerchantAdminService {
