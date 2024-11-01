@@ -27,4 +27,4 @@ import { MiddlewrersModule } from './middlewrers/middlewrers.module';
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

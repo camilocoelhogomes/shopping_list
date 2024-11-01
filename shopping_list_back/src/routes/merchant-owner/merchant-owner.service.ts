@@ -16,7 +16,7 @@ export class MerchantOwnerService {
   constructor(
     @Inject(DatabaseDiTokens.MERCHANT_OWNER_REPOSITORY)
     private readonly merchantouOwnerRepository: Repository<MerchantOwner>,
-  ) { }
+  ) {}
 
   async create(createMerchantOwnerDto: Partial<MerchantOwner>) {
     const merchantOwner = new MerchantOwner();

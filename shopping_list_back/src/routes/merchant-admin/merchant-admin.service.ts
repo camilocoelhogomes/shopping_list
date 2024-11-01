@@ -19,7 +19,7 @@ export class MerchantAdminService {
     private readonly merchantRepositoty: Repository<Merchant>,
     @Inject(DatabaseDiTokens.MERCHANT_OWNER_REPOSITORY)
     private readonly merchantOwnerRepository: Repository<MerchantOwner>,
-  ) { }
+  ) {}
 
   async create(createMerchantAdminDto: Partial<Merchant>, uid: string) {
     try {

@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { CreateAisleAdminDto } from './dto/create-aisle-admin.dto';
-import { UpdateAisleAdminDto } from './dto/update-aisle-admin.dto';
+import { Aisle } from '../../data-base/entity/aisle.entity';
 
 @Injectable()
 export class AisleAdminService {
-  create(createAisleAdminDto: CreateAisleAdminDto) {
+  create(createAisleAdminDto: Partial<Aisle>) {
     return 'This action adds a new aisleAdmin';
   }
 
@@ -16,7 +15,7 @@ export class AisleAdminService {
     return `This action returns a #${id} aisleAdmin`;
   }
 
-  update(id: number, updateAisleAdminDto: UpdateAisleAdminDto) {
+  update(id: number, updateAisleAdminDto: Partial<Aisle>) {
     return `This action updates a #${id} aisleAdmin`;
   }
 

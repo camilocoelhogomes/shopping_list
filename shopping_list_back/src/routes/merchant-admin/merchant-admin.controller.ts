@@ -12,7 +12,7 @@ import { Merchant } from '../../data-base/entity/merchant.entity';
 
 @Controller('admin/merchant')
 export class MerchantAdminController {
-  constructor(private readonly merchantAdminService: MerchantAdminService) { }
+  constructor(private readonly merchantAdminService: MerchantAdminService) {}
 
   @Post()
   create(

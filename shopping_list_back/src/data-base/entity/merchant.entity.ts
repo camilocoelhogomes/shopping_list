@@ -6,7 +6,7 @@ import {
   JoinColumn,
   Index,
 } from 'typeorm';
-import { MerchantOwner } from '../../merchant-owner/entities/merchant-owner.entity';
+import { MerchantOwner } from './merchant-owner.entity';
 
 @Entity({ schema: 'merchant', name: 'merchant' })
 @Index('idx_merchant_uri', ['merchantUri'], { unique: true })

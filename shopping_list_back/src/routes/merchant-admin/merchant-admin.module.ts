@@ -10,7 +10,12 @@ import { MiddlewrersModule } from '../../middlewrers/middlewrers.module';
 @Module({
   controllers: [MerchantAdminController],
   providers: [MerchantAdminService],
-  imports: [DataBaseModule, MerchantOwnerModule, MiddlewrersModule],
+  imports: [
+    DataBaseModule,
+    MerchantOwnerModule,
+    MiddlewrersModule,
+    FirebaseModule,
+  ],
 })
 export class MerchantAdminModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

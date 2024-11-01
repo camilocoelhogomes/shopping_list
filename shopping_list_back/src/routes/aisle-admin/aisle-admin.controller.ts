@@ -1,14 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { AisleAdminService } from './aisle-admin.service';
-import { CreateAisleAdminDto } from './dto/create-aisle-admin.dto';
-import { UpdateAisleAdminDto } from './dto/update-aisle-admin.dto';
+import { Aisle } from '../../data-base/entity/aisle.entity';
 
 @Controller('aisle-admin')
 export class AisleAdminController {
   constructor(private readonly aisleAdminService: AisleAdminService) {}
 
   @Post()
-  create(@Body() createAisleAdminDto: CreateAisleAdminDto) {
+  create(@Body() createAisleAdminDto: Partial<Aisle>) {
     return this.aisleAdminService.create(createAisleAdminDto);
   }
 
@@ -23,7 +30,7 @@ export class AisleAdminController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAisleAdminDto: UpdateAisleAdminDto) {
+  update(@Param('id') id: string, @Body() updateAisleAdminDto: Partial<Aisle>) {
     return this.aisleAdminService.update(+id, updateAisleAdminDto);
   }
 

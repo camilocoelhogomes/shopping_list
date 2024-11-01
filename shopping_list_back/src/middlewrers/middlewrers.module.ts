@@ -5,6 +5,6 @@ import { FirebaseModule } from '../firebase/firebase.module';
 @Module({
   imports: [FirebaseModule],
   providers: [AuthMiddleware],
-  exports: [AuthMiddleware]
+  exports: [AuthMiddleware],
 })
-export class MiddlewrersModule { }
+export class MiddlewrersModule {}
