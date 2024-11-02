@@ -1,16 +1,31 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable, Logger } from '@nestjs/common';
 import { Aisle } from '../../data-base/entity/aisle.entity';
 import { Repository } from 'typeorm';
 import { DatabaseDiTokens } from '../../data-base/DatabaseDiTokens';
 
 @Injectable()
 export class AisleAdminService {
+  private readonly log = new Logger(AisleAdminService.name);
 
-  constructor(@Inject(DatabaseDiTokens.AISLE_REPOSITORY) private readonly aisleRepository: Repository<Aisle>) { }
+  constructor(
+    @Inject(DatabaseDiTokens.AISLE_REPOSITORY)
+    private readonly aisleRepository: Repository<Aisle>,
+  ) {}
 
-
-  create(createAisleAdminDto: Partial<Aisle>) {
-    return 'This action adds a new aisleAdmin';
+  async create(aisle: Partial<Aisle>) {
+    const verifyAisle = await this.aisleRepository.findOne({
+      where: [
+        {
+          merchantId: aisle.merchantId,
+          aisleNumber: aisle.aisleNumber,
+        },
+        { merchantId: aisle.merchantId, aisleName: aisle.aisleName },
+      ],
+    });
+    if (verifyAisle) {
+      throw new ConflictException('Aisle already exists');
+    }
+    return await this.aisleRepository.save(this.aisleRepository.create(aisle));
   }
 
   findAll() {
