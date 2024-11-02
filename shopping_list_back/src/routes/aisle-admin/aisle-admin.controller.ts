@@ -23,18 +23,26 @@ export class AisleAdminController {
   }
 
   @Get()
-  findAll() {
-    return this.aisleAdminService.findAll();
+  findAll(@Param('merchantId') merchantId: string) {
+    return this.aisleAdminService.findAll(+merchantId);
   }
 
   @Get(':id')
   findOne(@Param('id') id: string, @Param('merchantId') merchantId: string) {
-    return this.aisleAdminService.findOne(+id);
+    return this.aisleAdminService.findOne(+id, +merchantId);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAisleAdminDto: Partial<Aisle>) {
-    return this.aisleAdminService.update(+id, updateAisleAdminDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateAisleAdminDto: Partial<Aisle>,
+    @Param('merchantId') merchantId: string,
+  ) {
+    return this.aisleAdminService.update({
+      ...updateAisleAdminDto,
+      aisleId: +id,
+      merchantId: +merchantId,
+    });
   }
 
   @Delete(':id')

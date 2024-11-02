@@ -1,4 +1,10 @@
-import { ConflictException, Inject, Injectable, Logger } from '@nestjs/common';
+import {
+  ConflictException,
+  Inject,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { Aisle } from '../../data-base/entity/aisle.entity';
 import { Repository } from 'typeorm';
 import { DatabaseDiTokens } from '../../data-base/DatabaseDiTokens';
@@ -10,7 +16,7 @@ export class AisleAdminService {
   constructor(
     @Inject(DatabaseDiTokens.AISLE_REPOSITORY)
     private readonly aisleRepository: Repository<Aisle>,
-  ) {}
+  ) { }
 
   async create(aisle: Partial<Aisle>) {
     const verifyAisle = await this.aisleRepository.findOne({
@@ -18,8 +24,9 @@ export class AisleAdminService {
         {
           merchantId: aisle.merchantId,
           aisleNumber: aisle.aisleNumber,
+          active: true,
         },
-        { merchantId: aisle.merchantId, aisleName: aisle.aisleName },
+        { merchantId: aisle.merchantId, aisleName: aisle.aisleName, active: true },
       ],
     });
     if (verifyAisle) {
@@ -28,19 +35,34 @@ export class AisleAdminService {
     return await this.aisleRepository.save(this.aisleRepository.create(aisle));
   }
 
-  findAll() {
-    return `This action returns all aisleAdmin`;
+  async findAll(merchantId: number) {
+    return await this.aisleRepository.find({
+      where: { merchantId, active: true },
+      order: { aisleNumber: 'ASC' },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} aisleAdmin`;
+  async findOne(id: number, merchantId: number) {
+    return await this.aisleRepository.findOne({
+      where: { aisleId: id, merchantId, active: true },
+    });
   }
 
-  update(id: number, updateAisleAdminDto: Partial<Aisle>) {
-    return `This action updates a #${id} aisleAdmin`;
+  async update(updateAisleAdminDto: Partial<Aisle>) {
+
+    const result = await this.aisleRepository.update(
+      {
+        aisleId: updateAisleAdminDto.aisleId,
+        merchantId: updateAisleAdminDto.merchantId,
+      },
+      updateAisleAdminDto,
+    );
+    if (result.affected === 0) {
+      throw new NotFoundException('Aisle not found');
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} aisleAdmin`;
+  async remove(id: number) {
+    await this.aisleRepository.update(id, { active: false });
   }
 }

@@ -5,8 +5,10 @@ import {
   ManyToOne,
   JoinColumn,
   Index,
+  OneToMany,
 } from 'typeorm';
 import { MerchantOwner } from './merchant-owner.entity';
+import { Aisle } from './aisle.entity';
 
 @Entity({ schema: 'merchant', name: 'merchant' })
 @Index('idx_merchant_uri', ['merchantUri'], { unique: true })
@@ -42,4 +44,7 @@ export class Merchant {
   @ManyToOne(() => MerchantOwner)
   @JoinColumn({ name: 'owner_id' })
   owner: MerchantOwner;
+
+  @OneToMany(() => Aisle, (aisle) => aisle.merchant)
+  aisles: Aisle[];
 }
