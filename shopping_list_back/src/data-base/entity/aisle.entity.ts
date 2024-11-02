@@ -10,16 +10,16 @@ import { Merchant } from './merchant.entity';
 @Entity({ schema: 'merchant', name: 'aisle' })
 export class Aisle {
   @PrimaryGeneratedColumn({ type: 'bigint' })
-  aisle_id: number;
+  aisleId: number;
 
   @Column({ type: 'bigint' })
-  merchant_id: number;
+  merchantId: number;
 
   @Column({ type: 'varchar', length: 255 })
-  aisle_name: string;
+  aisleName: string;
 
   @Column({ type: 'varchar', length: 255 })
-  aisle_description: string;
+  aisleDescription: string;
 
   @Column({ type: 'bool', default: true })
   active: boolean;
