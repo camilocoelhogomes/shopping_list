@@ -16,7 +16,7 @@ export class ProductCategoryService {
   constructor(
     @Inject(DatabaseDiTokens.PRODUCT_CATEGORY_REPOSITORY)
     private readonly productCategoryRepository: Repository<ProductCategory>,
-  ) {}
+  ) { }
 
   async create(createProductCategoryDto: Partial<ProductCategory>) {
     const productCategory = await this.productCategoryRepository.findOne({
@@ -62,7 +62,7 @@ export class ProductCategoryService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} productCategory`;
+  async remove(id: number) {
+    return await this.productCategoryRepository.update({ categoryId: id }, { active: false });
   }
 }
