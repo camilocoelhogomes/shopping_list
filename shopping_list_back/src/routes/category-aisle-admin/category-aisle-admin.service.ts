@@ -74,47 +74,33 @@ export class CategoryAisleAdminService {
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
+      const updatePromise = queryRunner.manager.update(
+        MerchantAisleCategory,
+        {
+          merchantId: merchantAisle.merchantId,
+          aisleId: merchantAisle.aisleId,
+          categoryId: merchantAisle.categoryId,
+        },
+        {
+          position: merchantAisle.position,
+        },
+      );
+      const ajPromise = queryRunner.manager
+        .createQueryBuilder()
+        .update(MerchantAisleCategory);
       if (oldPosition < merchantAisle.position) {
-        const ajPromise = queryRunner.manager
-          .createQueryBuilder()
-          .update(MerchantAisleCategory)
+        ajPromise
           .set({ position: () => 'position - 1' })
           .where('position <= :position', { position: merchantAisle.position })
-          .andWhere('position > :oldPosition', { oldPosition })
-          .execute();
-        const updatePromise = queryRunner.manager.update(
-          MerchantAisleCategory,
-          {
-            merchantId: merchantAisle.merchantId,
-            aisleId: merchantAisle.aisleId,
-            categoryId: merchantAisle.categoryId,
-          },
-          {
-            position: merchantAisle.position,
-          },
-        );
-        await Promise.all([ajPromise, updatePromise]);
+          .andWhere('position > :oldPosition', { oldPosition });
       } else {
-        const ajPromise = queryRunner.manager
-          .createQueryBuilder()
-          .update(MerchantAisleCategory)
+        ajPromise
           .set({ position: () => 'position + 1' })
           .where('position >= :position', { position: merchantAisle.position })
-          .andWhere('position < :oldPosition', { oldPosition })
-          .execute();
-        const updatePromise = await queryRunner.manager.update(
-          MerchantAisleCategory,
-          {
-            merchantId: merchantAisle.merchantId,
-            aisleId: merchantAisle.aisleId,
-            categoryId: merchantAisle.categoryId,
-          },
-          {
-            position: merchantAisle.position,
-          },
-        );
+          .andWhere('position < :oldPosition', { oldPosition });
         await Promise.all([ajPromise, updatePromise]);
       }
+      await Promise.all([ajPromise.execute(), updatePromise]);
       await queryRunner.commitTransaction();
     } catch (error) {
       await queryRunner.rollbackTransaction();
