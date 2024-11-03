@@ -6,7 +6,7 @@ import { MerchantAisleCategory } from '../../data-base/entity/category-aisle.ent
 export class CategoryAisleAdminController {
   constructor(
     private readonly categoryAisleAdminService: CategoryAisleAdminService,
-  ) { }
+  ) {}
 
   @Post()
   create(
@@ -35,6 +35,9 @@ export class CategoryAisleAdminController {
     @Param('merchantId') merchantId: string,
     @Body() relation: Partial<MerchantAisleCategory>,
   ) {
-    return this.categoryAisleAdminService.remove({ ...relation, merchantId: +merchantId });
+    return this.categoryAisleAdminService.remove({
+      ...relation,
+      merchantId: +merchantId,
+    });
   }
 }

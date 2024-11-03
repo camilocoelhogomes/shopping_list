@@ -10,7 +10,7 @@ export class CategoryAisleAdminService {
   constructor(
     @Inject(DatabaseDiTokens.MERCHANT_AISLE_CATEGORY_REPOSITORY)
     private readonly categoryAisleAdminRepository: Repository<MerchantAisleCategory>,
-  ) { }
+  ) {}
 
   async create(merchantAisle: Partial<MerchantAisleCategory>) {
     try {
@@ -19,17 +19,19 @@ export class CategoryAisleAdminService {
           merchantId: merchantAisle.merchantId,
           aisleId: merchantAisle.aisleId,
           position: merchantAisle.position,
-        }
+        },
       });
       const m = this.categoryAisleAdminRepository.create(merchantAisle);
       if (!existsPosition) {
         return await this.categoryAisleAdminRepository.save(m);
       }
-      const queryRunner = this.categoryAisleAdminRepository.manager.connection.createQueryRunner();
+      const queryRunner =
+        this.categoryAisleAdminRepository.manager.connection.createQueryRunner();
       await queryRunner.connect();
       await queryRunner.startTransaction();
       try {
-        await queryRunner.manager.createQueryBuilder()
+        await queryRunner.manager
+          .createQueryBuilder()
           .update(MerchantAisleCategory)
           .set({ position: () => 'position + 1' })
           .where('position >= :position', { position: merchantAisle.position })
@@ -51,17 +53,14 @@ export class CategoryAisleAdminService {
   }
 
   async update(merchantAisle: Partial<MerchantAisleCategory>) {
-
-    const merchantCategory = (
-      await this.categoryAisleAdminRepository.findOne({
-        where: {
-          merchantId: merchantAisle.merchantId,
-          aisleId: merchantAisle.aisleId,
-          categoryId: merchantAisle.categoryId,
-          position: Not(merchantAisle.position),
-        },
-      })
-    );
+    const merchantCategory = await this.categoryAisleAdminRepository.findOne({
+      where: {
+        merchantId: merchantAisle.merchantId,
+        aisleId: merchantAisle.aisleId,
+        categoryId: merchantAisle.categoryId,
+        position: Not(merchantAisle.position),
+      },
+    });
     if (!merchantCategory) {
       throw new NotFoundException('CategoryAisleAdmin not found');
     }
@@ -76,7 +75,8 @@ export class CategoryAisleAdminService {
     await queryRunner.startTransaction();
     try {
       if (oldPosition < merchantAisle.position) {
-        const ajPromise = queryRunner.manager.createQueryBuilder()
+        const ajPromise = queryRunner.manager
+          .createQueryBuilder()
           .update(MerchantAisleCategory)
           .set({ position: () => 'position - 1' })
           .where('position <= :position', { position: merchantAisle.position })
@@ -95,12 +95,13 @@ export class CategoryAisleAdminService {
         );
         await Promise.all([ajPromise, updatePromise]);
       } else {
-        const ajPromise = queryRunner.manager.createQueryBuilder()
+        const ajPromise = queryRunner.manager
+          .createQueryBuilder()
           .update(MerchantAisleCategory)
           .set({ position: () => 'position + 1' })
           .where('position >= :position', { position: merchantAisle.position })
           .andWhere('position < :oldPosition', { oldPosition })
-          .execute()
+          .execute();
         const updatePromise = await queryRunner.manager.update(
           MerchantAisleCategory,
           {
@@ -127,10 +128,13 @@ export class CategoryAisleAdminService {
   }
 
   async remove(realtion: Partial<MerchantAisleCategory>) {
-    return await this.categoryAisleAdminRepository.update({
-      merchantId: realtion.merchantId,
-      aisleId: realtion.aisleId,
-      categoryId: realtion.categoryId,
-    }, { active: false });
+    return await this.categoryAisleAdminRepository.update(
+      {
+        merchantId: realtion.merchantId,
+        aisleId: realtion.aisleId,
+        categoryId: realtion.categoryId,
+      },
+      { active: false },
+    );
   }
 }
