@@ -10,15 +10,15 @@ import {
 import { ProductCategoryService } from './product-category.service';
 import { ProductCategory } from '../../data-base/entity/product-category.entity';
 
-@Controller('product-category')
+@Controller('admin/merchant/:merchantId/product-category')
 export class ProductCategoryController {
   constructor(
     private readonly productCategoryService: ProductCategoryService,
-  ) {}
+  ) { }
 
   @Post()
-  create(@Body() createProductCategoryDto: Partial<ProductCategory>) {
-    return this.productCategoryService.create(createProductCategoryDto);
+  create(@Body() createProductCategoryDto: Partial<ProductCategory>, @Param('merchantId') merchantId: string) {
+    return this.productCategoryService.create({ ...createProductCategoryDto, merchantId: +merchantId });
   }
 
   @Get()
