@@ -14,9 +14,36 @@ export class CategoryAisleAdminService {
 
   async create(merchantAisle: Partial<MerchantAisleCategory>) {
     try {
-      return await this.categoryAisleAdminRepository.save(
-        this.categoryAisleAdminRepository.create(merchantAisle),
-      );
+      const existsPosition = await this.categoryAisleAdminRepository.findOne({
+        where: {
+          merchantId: merchantAisle.merchantId,
+          aisleId: merchantAisle.aisleId,
+          position: merchantAisle.position,
+        }
+      });
+      const m = this.categoryAisleAdminRepository.create(merchantAisle);
+      if (!existsPosition) {
+        return await this.categoryAisleAdminRepository.save(m);
+      }
+      const queryRunner = this.categoryAisleAdminRepository.manager.connection.createQueryRunner();
+      await queryRunner.connect();
+      await queryRunner.startTransaction();
+      try {
+        await queryRunner.manager.createQueryBuilder()
+          .update(MerchantAisleCategory)
+          .set({ position: () => 'position + 1' })
+          .where('position >= :position', { position: merchantAisle.position })
+          .execute();
+        const result = await queryRunner.manager.save(m);
+        await queryRunner.commitTransaction();
+        return result;
+      } catch (error) {
+        await queryRunner.rollbackTransaction();
+        this.log.error(error);
+        throw error;
+      } finally {
+        await queryRunner.release();
+      }
     } catch (error) {
       this.log.error(error);
       throw error;
