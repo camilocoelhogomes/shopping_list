@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { MerchantAisleCategory } from '../../data-base/entity/category-aisle.entity';
 import { DatabaseDiTokens } from '../../data-base/DatabaseDiTokens';
 import { Not, Repository } from 'typeorm';
@@ -10,7 +10,7 @@ export class CategoryAisleAdminService {
   constructor(
     @Inject(DatabaseDiTokens.MERCHANT_AISLE_CATEGORY_REPOSITORY)
     private readonly categoryAisleAdminRepository: Repository<MerchantAisleCategory>,
-  ) { }
+  ) {}
 
   async create(merchantAisle: Partial<MerchantAisleCategory>) {
     try {
@@ -30,13 +30,15 @@ export class CategoryAisleAdminService {
       await queryRunner.connect();
       await queryRunner.startTransaction();
       try {
-        await queryRunner.manager
+        const query = queryRunner.manager
           .createQueryBuilder()
           .update(MerchantAisleCategory)
           .set({ position: () => 'position + 1' })
-          .where('position >= :position', { position: merchantAisle.position })
-          .execute();
-        const result = await queryRunner.manager.save(m);
+          .where('position >= :position', { position: merchantAisle.position });
+        const [_, result] = await Promise.all([
+          query.execute(),
+          queryRunner.manager.save(m),
+        ]);
         await queryRunner.commitTransaction();
         return result;
       } catch (error) {
