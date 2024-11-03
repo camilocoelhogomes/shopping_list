@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { ProductCategory } from '../../data-base/entity/product-category.entity';
 import { DatabaseDiTokens } from '../../data-base/DatabaseDiTokens';
 import { Repository } from 'typeorm';
@@ -22,12 +22,19 @@ export class ProductCategoryService {
     return await this.productCategoryRepository.find({ where: { merchantId } });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} productCategory`;
+  async findOne(id: number, merchantId: number) {
+    return await this.productCategoryRepository.findOne({ where: { categoryId: id, merchantId } });
   }
 
-  update(id: number, updateProductCategoryDto: Partial<ProductCategory>) {
-    return `This action updates a #${id} productCategory`;
+  async update(updateProductCategoryDto: Partial<ProductCategory>) {
+    const update = await this.productCategoryRepository.update({
+      categoryId: updateProductCategoryDto.categoryId,
+      merchantId: updateProductCategoryDto.merchantId,
+    }, updateProductCategoryDto);
+
+    if (update.affected === 0) {
+      throw new NotFoundException(`Product category with id ${updateProductCategoryDto.categoryId} not found`);
+    }
   }
 
   remove(id: number) {

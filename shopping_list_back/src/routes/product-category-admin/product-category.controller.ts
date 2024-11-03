@@ -27,16 +27,17 @@ export class ProductCategoryController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.productCategoryService.findOne(+id);
+  findOne(@Param('id') id: string, @Param('merchantId') merchantId: string) {
+    return this.productCategoryService.findOne(+id, +merchantId);
   }
 
   @Patch(':id')
   update(
     @Param('id') id: string,
+    @Param('merchantId') merchantId: string,
     @Body() updateProductCategoryDto: Partial<ProductCategory>,
   ) {
-    return this.productCategoryService.update(+id, updateProductCategoryDto);
+    return this.productCategoryService.update({ ...updateProductCategoryDto, categoryId: +id, merchantId: +merchantId });
   }
 
   @Delete(':id')
