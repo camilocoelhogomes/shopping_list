@@ -6,6 +6,7 @@ import { MerchantOwner } from './entity/merchant-owner.entity';
 import { Merchant } from './entity/merchant.entity';
 import { Aisle } from './entity/aisle.entity';
 import { ProductCategory } from './entity/product-category.entity';
+import { MerchantAisleCategory } from './entity/category-aisle.entity';
 
 export const databaseProvider: Provider[] = [
   {
@@ -14,7 +15,13 @@ export const databaseProvider: Provider[] = [
       const dbConfig = configService.get('dbConfig');
       const dataSource: DataSource = new DataSource({
         ...dbConfig,
-        entities: [MerchantOwner, Merchant, Aisle, ProductCategory],
+        entities: [
+          MerchantOwner,
+          Merchant,
+          Aisle,
+          ProductCategory,
+          MerchantAisleCategory,
+        ],
       });
 
       await dataSource.initialize();

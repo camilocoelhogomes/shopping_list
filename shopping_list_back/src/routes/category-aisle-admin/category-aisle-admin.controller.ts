@@ -1,11 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { CategoryAisleAdminService } from './category-aisle-admin.service';
 import { CreateCategoryAisleAdminDto } from './dto/create-category-aisle-admin.dto';
 import { UpdateCategoryAisleAdminDto } from './dto/update-category-aisle-admin.dto';
 
 @Controller('category-aisle-admin')
 export class CategoryAisleAdminController {
-  constructor(private readonly categoryAisleAdminService: CategoryAisleAdminService) {}
+  constructor(
+    private readonly categoryAisleAdminService: CategoryAisleAdminService,
+  ) {}
 
   @Post()
   create(@Body() createCategoryAisleAdminDto: CreateCategoryAisleAdminDto) {
@@ -23,8 +33,14 @@ export class CategoryAisleAdminController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCategoryAisleAdminDto: UpdateCategoryAisleAdminDto) {
-    return this.categoryAisleAdminService.update(+id, updateCategoryAisleAdminDto);
+  update(
+    @Param('id') id: string,
+    @Body() updateCategoryAisleAdminDto: UpdateCategoryAisleAdminDto,
+  ) {
+    return this.categoryAisleAdminService.update(
+      +id,
+      updateCategoryAisleAdminDto,
+    );
   }
 
   @Delete(':id')
