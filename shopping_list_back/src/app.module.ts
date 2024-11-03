@@ -29,4 +29,4 @@ import { ProductCategoryModule } from './routes/product-category-admin/product-c
   controllers: [],
   providers: [],
 })
-export class AppModule { }
+export class AppModule {}

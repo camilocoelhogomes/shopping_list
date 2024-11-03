@@ -14,11 +14,17 @@ import { ProductCategory } from '../../data-base/entity/product-category.entity'
 export class ProductCategoryController {
   constructor(
     private readonly productCategoryService: ProductCategoryService,
-  ) { }
+  ) {}
 
   @Post()
-  create(@Body() createProductCategoryDto: Partial<ProductCategory>, @Param('merchantId') merchantId: string) {
-    return this.productCategoryService.create({ ...createProductCategoryDto, merchantId: +merchantId });
+  create(
+    @Body() createProductCategoryDto: Partial<ProductCategory>,
+    @Param('merchantId') merchantId: string,
+  ) {
+    return this.productCategoryService.create({
+      ...createProductCategoryDto,
+      merchantId: +merchantId,
+    });
   }
 
   @Get()
@@ -37,7 +43,11 @@ export class ProductCategoryController {
     @Param('merchantId') merchantId: string,
     @Body() updateProductCategoryDto: Partial<ProductCategory>,
   ) {
-    return this.productCategoryService.update({ ...updateProductCategoryDto, categoryId: +id, merchantId: +merchantId });
+    return this.productCategoryService.update({
+      ...updateProductCategoryDto,
+      categoryId: +id,
+      merchantId: +merchantId,
+    });
   }
 
   @Delete(':id')
