@@ -9,6 +9,7 @@ import { MerchantAdminModule } from './routes/merchant-admin/merchant-admin.modu
 import { AisleAdminModule } from './routes/aisle-admin/aisle-admin.module';
 import { MiddlewrersModule } from './middlewrers/middlewrers.module';
 import { ProductCategoryModule } from './routes/product-category-admin/product-category.module';
+import { CategoryAisleAdminModule } from './category-aisle-admin/category-aisle-admin.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { ProductCategoryModule } from './routes/product-category-admin/product-c
     AisleAdminModule,
     MiddlewrersModule,
     ProductCategoryModule,
+    CategoryAisleAdminModule,
   ],
   controllers: [],
   providers: [],

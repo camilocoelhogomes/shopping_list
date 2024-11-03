@@ -3,6 +3,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Merchant } from './merchant.entity';
@@ -12,7 +13,7 @@ export class Aisle {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'aisle_id' })
   aisleId: number;
 
-  @Column({ type: 'bigint', name: 'merchant_id' })
+  @PrimaryColumn({ type: 'bigint', name: 'merchant_id' })
   merchantId: number;
 
   @Column({ type: 'varchar', length: 255, name: 'aisle_name' })
