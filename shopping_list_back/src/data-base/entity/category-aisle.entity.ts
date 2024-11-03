@@ -5,30 +5,30 @@ import { ProductCategory } from './product-category.entity';
 
 @Entity({ schema: 'merchant', name: 'merchant_aisle_category' })
 export class MerchantAisleCategory {
-  @PrimaryColumn({ type: 'bigint' })
+  @PrimaryColumn({ type: 'bigint', name: 'merchant_id' })
   merchantId: number;
 
-  @PrimaryColumn({ type: 'bigint' })
+  @PrimaryColumn({ type: 'bigint', name: 'aisle_id' })
   aisleId: number;
 
-  @PrimaryColumn({ type: 'bigint' })
+  @PrimaryColumn({ type: 'bigint', name: 'category_id' })
   categoryId: number;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'int', name: 'position' })
   position: number;
 
-  @Column({ type: 'bool', default: true })
+  @Column({ type: 'bool', default: true, name: 'active' })
   active: boolean;
 
   @ManyToOne(() => Merchant)
-  @JoinColumn({ name: 'merchant_id' })
+  @JoinColumn({ name: 'merchant_id', referencedColumnName: 'merchantId' })
   merchant: Merchant;
 
   @ManyToOne(() => Aisle)
-  @JoinColumn({ name: 'aisle_id' })
+  @JoinColumn({ name: 'aisle_id', referencedColumnName: 'aisleId' })
   aisle: Aisle;
 
   @ManyToOne(() => ProductCategory)
-  @JoinColumn({ name: 'category_id' })
+  @JoinColumn({ name: 'category_id', referencedColumnName: 'categoryId' })
   category: ProductCategory;
 }

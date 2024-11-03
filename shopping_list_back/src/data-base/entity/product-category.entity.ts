@@ -1,16 +1,16 @@
 import {
   Entity,
-  Index,
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
   JoinColumn,
   PrimaryColumn,
+  OneToMany,
 } from 'typeorm';
 import { Merchant } from './merchant.entity';
+import { MerchantAisleCategory } from './category-aisle.entity';
 
 @Entity({ schema: 'merchant', name: 'product_category' })
-@Index('idx_category_merchant_id', ['merchantId'])
 export class ProductCategory {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'category_id' })
   categoryId: number;
@@ -28,6 +28,12 @@ export class ProductCategory {
   active: boolean;
 
   @ManyToOne(() => Merchant)
-  @JoinColumn({ name: 'merchant_id' })
+  @JoinColumn({ name: 'merchant_id', referencedColumnName: 'merchantId' })
   merchant: Merchant;
+
+  @OneToMany(
+    () => MerchantAisleCategory,
+    (merchantAisleCategory) => merchantAisleCategory.category,
+  )
+  aisleCategorys: MerchantAisleCategory[];
 }

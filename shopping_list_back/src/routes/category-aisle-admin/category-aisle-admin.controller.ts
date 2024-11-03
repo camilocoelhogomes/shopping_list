@@ -1,50 +1,35 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
-} from '@nestjs/common';
+import { Controller, Post, Body, Param } from '@nestjs/common';
 import { CategoryAisleAdminService } from './category-aisle-admin.service';
-import { CreateCategoryAisleAdminDto } from './dto/create-category-aisle-admin.dto';
-import { UpdateCategoryAisleAdminDto } from './dto/update-category-aisle-admin.dto';
+import { MerchantAisleCategory } from '../../data-base/entity/category-aisle.entity';
 
-@Controller('category-aisle-admin')
+@Controller('admin/merchant/:merchantId/aisle-category')
 export class CategoryAisleAdminController {
   constructor(
     private readonly categoryAisleAdminService: CategoryAisleAdminService,
   ) {}
 
   @Post()
-  create(@Body() createCategoryAisleAdminDto: CreateCategoryAisleAdminDto) {
-    return this.categoryAisleAdminService.create(createCategoryAisleAdminDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.categoryAisleAdminService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.categoryAisleAdminService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(
-    @Param('id') id: string,
-    @Body() updateCategoryAisleAdminDto: UpdateCategoryAisleAdminDto,
+  create(
+    @Body() createCategoryAisleAdminDto: Partial<MerchantAisleCategory>,
+    @Param('merchantId') merchantId: string,
   ) {
-    return this.categoryAisleAdminService.update(
-      +id,
-      updateCategoryAisleAdminDto,
-    );
+    return this.categoryAisleAdminService.create({
+      ...createCategoryAisleAdminDto,
+      merchantId: +merchantId,
+    });
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.categoryAisleAdminService.remove(+id);
+  update(
+    @Body() updateCategoryAisleAdminDto: Partial<MerchantAisleCategory>,
+    @Param('merchantId') merchantId: string,
+  ) {
+    return this.categoryAisleAdminService.update(updateCategoryAisleAdminDto);
+  }
+
+  remove(
+    @Param('merchantId') merchantId: string,
+    @Body() relation: Partial<MerchantAisleCategory>,
+  ) {
+    return this.categoryAisleAdminService.remove(relation);
   }
 }

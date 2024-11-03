@@ -3,10 +3,12 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Merchant } from './merchant.entity';
+import { MerchantAisleCategory } from './category-aisle.entity';
 
 @Entity({ schema: 'merchant', name: 'aisle' })
 export class Aisle {
@@ -31,4 +33,10 @@ export class Aisle {
   @ManyToOne(() => Merchant)
   @JoinColumn({ name: 'merchant_id' })
   merchant: Merchant;
+
+  @OneToMany(
+    () => MerchantAisleCategory,
+    (merchantAisleCategory) => merchantAisleCategory.aisle,
+  )
+  aisleCategorys: MerchantAisleCategory[];
 }

@@ -42,7 +42,7 @@ export class Merchant {
   merchantUri: string;
 
   @ManyToOne(() => MerchantOwner)
-  @JoinColumn({ name: 'owner_id' })
+  @JoinColumn({ name: 'owner_id', referencedColumnName: 'userId' })
   owner: MerchantOwner;
 
   @OneToMany(() => Aisle, (aisle) => aisle.merchant)

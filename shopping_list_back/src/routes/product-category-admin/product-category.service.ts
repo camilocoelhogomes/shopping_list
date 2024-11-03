@@ -16,7 +16,7 @@ export class ProductCategoryService {
   constructor(
     @Inject(DatabaseDiTokens.PRODUCT_CATEGORY_REPOSITORY)
     private readonly productCategoryRepository: Repository<ProductCategory>,
-  ) {}
+  ) { }
 
   async create(createProductCategoryDto: Partial<ProductCategory>) {
     const productCategory = await this.productCategoryRepository.findOne({
@@ -43,6 +43,8 @@ export class ProductCategoryService {
   async findOne(id: number, merchantId: number) {
     return await this.productCategoryRepository.findOne({
       where: { categoryId: id, merchantId },
+      relations: { aisleCategorys: { aisle: true } },
+      order: { aisleCategorys: { aisle: { aisleNumber: 'ASC' } } },
     });
   }
 

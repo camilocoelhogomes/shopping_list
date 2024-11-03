@@ -16,7 +16,7 @@ export class AisleAdminService {
   constructor(
     @Inject(DatabaseDiTokens.AISLE_REPOSITORY)
     private readonly aisleRepository: Repository<Aisle>,
-  ) {}
+  ) { }
 
   async create(aisle: Partial<Aisle>) {
     const verifyAisle = await this.aisleRepository.findOne({
@@ -48,7 +48,14 @@ export class AisleAdminService {
 
   async findOne(id: number, merchantId: number) {
     return await this.aisleRepository.findOne({
-      where: { aisleId: id, merchantId, active: true },
+      where: {
+        aisleId: id,
+        merchantId,
+        active: true,
+        aisleCategorys: { active: true },
+      },
+      relations: { aisleCategorys: { category: true } },
+      order: { aisleCategorys: { position: 'ASC' } },
     });
   }
 

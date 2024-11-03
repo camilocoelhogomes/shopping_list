@@ -1,26 +1,34 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCategoryAisleAdminDto } from './dto/create-category-aisle-admin.dto';
-import { UpdateCategoryAisleAdminDto } from './dto/update-category-aisle-admin.dto';
+import { Inject, Injectable, Logger } from '@nestjs/common';
+import { MerchantAisleCategory } from '../../data-base/entity/category-aisle.entity';
+import { DatabaseDiTokens } from '../../data-base/DatabaseDiTokens';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class CategoryAisleAdminService {
-  create(createCategoryAisleAdminDto: CreateCategoryAisleAdminDto) {
-    return 'This action adds a new categoryAisleAdmin';
+  private readonly log = new Logger(CategoryAisleAdminService.name);
+
+  constructor(
+    @Inject(DatabaseDiTokens.MERCHANT_AISLE_CATEGORY_REPOSITORY)
+    private readonly categoryAisleAdminRepository: Repository<MerchantAisleCategory>,
+  ) {}
+
+  async create(merchantAisle: Partial<MerchantAisleCategory>) {
+    try {
+      return await this.categoryAisleAdminRepository.save(
+        this.categoryAisleAdminRepository.create(merchantAisle),
+      );
+    } catch (error) {
+      this.log.error(error);
+      throw error;
+    }
   }
 
-  findAll() {
-    return `This action returns all categoryAisleAdmin`;
+  update(updateCategoryAisleAdminDto: Partial<MerchantAisleCategory>) {
+    const queryRunner = this.categoryAisleAdminRepository.queryRunner;
+    return `This action updates a categoryAisleAdmin`;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} categoryAisleAdmin`;
-  }
-
-  update(id: number, updateCategoryAisleAdminDto: UpdateCategoryAisleAdminDto) {
-    return `This action updates a #${id} categoryAisleAdmin`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} categoryAisleAdmin`;
+  remove(realtion: Partial<MerchantAisleCategory>) {
+    return `This action removes a categoryAisleAdmin`;
   }
 }
