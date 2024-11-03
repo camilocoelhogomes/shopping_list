@@ -10,7 +10,7 @@ export class CategoryAisleAdminService {
   constructor(
     @Inject(DatabaseDiTokens.MERCHANT_AISLE_CATEGORY_REPOSITORY)
     private readonly categoryAisleAdminRepository: Repository<MerchantAisleCategory>,
-  ) {}
+  ) { }
 
   async create(merchantAisle: Partial<MerchantAisleCategory>) {
     try {
@@ -62,13 +62,9 @@ export class CategoryAisleAdminService {
       },
     });
     if (!merchantCategory) {
-      throw new NotFoundException('CategoryAisleAdmin not found');
-    }
-    const oldPosition = merchantCategory.position;
-    if (oldPosition === merchantAisle.position) {
       return;
     }
-
+    const oldPosition = merchantCategory.position;
     const queryRunner =
       this.categoryAisleAdminRepository.manager.connection.createQueryRunner();
     await queryRunner.connect();
