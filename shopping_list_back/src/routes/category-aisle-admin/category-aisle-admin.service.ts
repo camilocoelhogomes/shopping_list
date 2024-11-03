@@ -75,7 +75,7 @@ export class CategoryAisleAdminService {
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
-      const updatePromise = queryRunner.manager.update(
+      const update = queryRunner.manager.update(
         MerchantAisleCategory,
         {
           merchantId: merchantAisle.merchantId,
@@ -91,6 +91,7 @@ export class CategoryAisleAdminService {
         .update(MerchantAisleCategory)
         .where('merchantId = :merchantId', { merchantId: merchantAisle.merchantId })
         .andWhere('aisleId = :aisleId', { aisleId: merchantAisle.aisleId })
+        .andWhere('categoryId != :categoryId', { categoryId: merchantAisle.categoryId });
       if (oldPosition < merchantAisle.position) {
         ajPromise
           .andWhere('position <= :position', { position: merchantAisle.position })
@@ -101,9 +102,8 @@ export class CategoryAisleAdminService {
           .andWhere('position >= :position', { position: merchantAisle.position })
           .andWhere('position < :oldPosition', { oldPosition })
           .set({ position: () => 'position + 1' });
-        await Promise.all([ajPromise, updatePromise]);
       }
-      await Promise.all([ajPromise.execute(), updatePromise]);
+      await Promise.all([update, ajPromise.execute()]);
       await queryRunner.commitTransaction();
     } catch (error) {
       await queryRunner.rollbackTransaction();
@@ -112,8 +112,6 @@ export class CategoryAisleAdminService {
     } finally {
       await queryRunner.release();
     }
-
-    return `This action updates a categoryAisleAdmin`;
   }
 
   async remove(realtion: Partial<MerchantAisleCategory>) {
