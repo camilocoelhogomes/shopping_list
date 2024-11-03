@@ -16,7 +16,7 @@ export class AisleAdminService {
   constructor(
     @Inject(DatabaseDiTokens.AISLE_REPOSITORY)
     private readonly aisleRepository: Repository<Aisle>,
-  ) { }
+  ) {}
 
   async create(aisle: Partial<Aisle>) {
     const verifyAisle = await this.aisleRepository.findOne({
@@ -26,7 +26,11 @@ export class AisleAdminService {
           aisleNumber: aisle.aisleNumber,
           active: true,
         },
-        { merchantId: aisle.merchantId, aisleName: aisle.aisleName, active: true },
+        {
+          merchantId: aisle.merchantId,
+          aisleName: aisle.aisleName,
+          active: true,
+        },
       ],
     });
     if (verifyAisle) {
@@ -49,7 +53,6 @@ export class AisleAdminService {
   }
 
   async update(updateAisleAdminDto: Partial<Aisle>) {
-
     const result = await this.aisleRepository.update(
       {
         aisleId: updateAisleAdminDto.aisleId,

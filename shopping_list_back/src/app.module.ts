@@ -8,6 +8,7 @@ import { DataBaseModule } from './data-base/data-base.module';
 import { MerchantAdminModule } from './routes/merchant-admin/merchant-admin.module';
 import { AisleAdminModule } from './routes/aisle-admin/aisle-admin.module';
 import { MiddlewrersModule } from './middlewrers/middlewrers.module';
+import { ProductCategoryModule } from './product-category/product-category.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { MiddlewrersModule } from './middlewrers/middlewrers.module';
     MerchantAdminModule,
     AisleAdminModule,
     MiddlewrersModule,
+    ProductCategoryModule,
   ],
   controllers: [],
   providers: [],

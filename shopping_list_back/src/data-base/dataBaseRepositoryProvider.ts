@@ -4,6 +4,7 @@ import { DataSource } from 'typeorm';
 import { MerchantOwner } from './entity/merchant-owner.entity';
 import { Merchant } from './entity/merchant.entity';
 import { Aisle } from './entity/aisle.entity';
+import { ProductCategory } from './entity/product-category.entity';
 
 export const dataBaseRepositoryProvider: Provider[] = [
   {
@@ -20,6 +21,12 @@ export const dataBaseRepositoryProvider: Provider[] = [
   {
     provide: DatabaseDiTokens.AISLE_REPOSITORY,
     useFactory: (dataSource: DataSource) => dataSource.getRepository(Aisle),
+    inject: [DatabaseDiTokens.DATA_SOURCE],
+  },
+  {
+    provide: DatabaseDiTokens.PRODUCT_CATEGORY_REPOSITORY,
+    useFactory: (dataSource: DataSource) =>
+      dataSource.getRepository(ProductCategory),
     inject: [DatabaseDiTokens.DATA_SOURCE],
   },
 ];
