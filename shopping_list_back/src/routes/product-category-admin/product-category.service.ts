@@ -18,8 +18,8 @@ export class ProductCategoryService {
     return result;
   }
 
-  findAll() {
-    return `This action returns all productCategory`;
+  async findAll(merchantId: number) {
+    return await this.productCategoryRepository.find({ where: { merchantId } });
   }
 
   findOne(id: number) {
