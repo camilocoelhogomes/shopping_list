@@ -16,7 +16,7 @@ export class AisleAdminService {
   constructor(
     @Inject(DatabaseDiTokens.AISLE_REPOSITORY)
     private readonly aisleRepository: Repository<Aisle>,
-  ) { }
+  ) {}
 
   async create(aisle: Partial<Aisle>) {
     const verifyAisle = await this.aisleRepository.findOne({

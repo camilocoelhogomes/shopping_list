@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Param } from '@nestjs/common';
+import { Controller, Post, Body, Param, Patch, Delete } from '@nestjs/common';
 import { CategoryAisleAdminService } from './category-aisle-admin.service';
 import { MerchantAisleCategory } from '../../data-base/entity/category-aisle.entity';
 
@@ -6,7 +6,7 @@ import { MerchantAisleCategory } from '../../data-base/entity/category-aisle.ent
 export class CategoryAisleAdminController {
   constructor(
     private readonly categoryAisleAdminService: CategoryAisleAdminService,
-  ) {}
+  ) { }
 
   @Post()
   create(
@@ -19,13 +19,18 @@ export class CategoryAisleAdminController {
     });
   }
 
+  @Patch()
   update(
     @Body() updateCategoryAisleAdminDto: Partial<MerchantAisleCategory>,
     @Param('merchantId') merchantId: string,
   ) {
-    return this.categoryAisleAdminService.update(updateCategoryAisleAdminDto);
+    return this.categoryAisleAdminService.update({
+      ...updateCategoryAisleAdminDto,
+      merchantId: +merchantId,
+    });
   }
 
+  @Delete()
   remove(
     @Param('merchantId') merchantId: string,
     @Body() relation: Partial<MerchantAisleCategory>,

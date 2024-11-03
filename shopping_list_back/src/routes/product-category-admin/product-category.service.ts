@@ -16,7 +16,7 @@ export class ProductCategoryService {
   constructor(
     @Inject(DatabaseDiTokens.PRODUCT_CATEGORY_REPOSITORY)
     private readonly productCategoryRepository: Repository<ProductCategory>,
-  ) { }
+  ) {}
 
   async create(createProductCategoryDto: Partial<ProductCategory>) {
     const productCategory = await this.productCategoryRepository.findOne({
