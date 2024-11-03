@@ -126,7 +126,11 @@ export class CategoryAisleAdminService {
     return `This action updates a categoryAisleAdmin`;
   }
 
-  remove(realtion: Partial<MerchantAisleCategory>) {
-    return `This action removes a categoryAisleAdmin`;
+  async remove(realtion: Partial<MerchantAisleCategory>) {
+    return await this.categoryAisleAdminRepository.update({
+      merchantId: realtion.merchantId,
+      aisleId: realtion.aisleId,
+      categoryId: realtion.categoryId,
+    }, { active: false });
   }
 }

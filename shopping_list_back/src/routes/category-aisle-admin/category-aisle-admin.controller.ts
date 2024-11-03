@@ -35,6 +35,6 @@ export class CategoryAisleAdminController {
     @Param('merchantId') merchantId: string,
     @Body() relation: Partial<MerchantAisleCategory>,
   ) {
-    return this.categoryAisleAdminService.remove(relation);
+    return this.categoryAisleAdminService.remove({ ...relation, merchantId: +merchantId });
   }
 }
