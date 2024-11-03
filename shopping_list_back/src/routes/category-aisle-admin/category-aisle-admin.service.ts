@@ -10,7 +10,7 @@ export class CategoryAisleAdminService {
   constructor(
     @Inject(DatabaseDiTokens.MERCHANT_AISLE_CATEGORY_REPOSITORY)
     private readonly categoryAisleAdminRepository: Repository<MerchantAisleCategory>,
-  ) { }
+  ) {}
 
   async create(merchantAisle: Partial<MerchantAisleCategory>) {
     try {
@@ -33,11 +33,14 @@ export class CategoryAisleAdminService {
         const query = queryRunner.manager
           .createQueryBuilder()
           .update(MerchantAisleCategory)
-          .where('merchantId = :merchantId', { merchantId: merchantAisle.merchantId })
+          .where('merchantId = :merchantId', {
+            merchantId: merchantAisle.merchantId,
+          })
           .andWhere('aisleId = :aisleId', { aisleId: merchantAisle.aisleId })
-          .andWhere('position >= :position', { position: merchantAisle.position })
-          .set({ position: () => 'position + 1' })
-          ;
+          .andWhere('position >= :position', {
+            position: merchantAisle.position,
+          })
+          .set({ position: () => 'position + 1' });
         const [_, result] = await Promise.all([
           query.execute(),
           queryRunner.manager.save(m),
@@ -89,17 +92,25 @@ export class CategoryAisleAdminService {
       const ajPromise = queryRunner.manager
         .createQueryBuilder()
         .update(MerchantAisleCategory)
-        .where('merchantId = :merchantId', { merchantId: merchantAisle.merchantId })
+        .where('merchantId = :merchantId', {
+          merchantId: merchantAisle.merchantId,
+        })
         .andWhere('aisleId = :aisleId', { aisleId: merchantAisle.aisleId })
-        .andWhere('categoryId != :categoryId', { categoryId: merchantAisle.categoryId });
+        .andWhere('categoryId != :categoryId', {
+          categoryId: merchantAisle.categoryId,
+        });
       if (oldPosition < merchantAisle.position) {
         ajPromise
-          .andWhere('position <= :position', { position: merchantAisle.position })
+          .andWhere('position <= :position', {
+            position: merchantAisle.position,
+          })
           .andWhere('position > :oldPosition', { oldPosition })
           .set({ position: () => 'position - 1' });
       } else {
         ajPromise
-          .andWhere('position >= :position', { position: merchantAisle.position })
+          .andWhere('position >= :position', {
+            position: merchantAisle.position,
+          })
           .andWhere('position < :oldPosition', { oldPosition })
           .set({ position: () => 'position + 1' });
       }
