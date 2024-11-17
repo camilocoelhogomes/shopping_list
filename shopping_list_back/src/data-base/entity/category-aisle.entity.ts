@@ -1,7 +1,7 @@
 import { Entity, PrimaryColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Aisle } from './aisle.entity';
 import { Merchant } from './merchant.entity';
-import { ProductCategory } from './product-category.entity';
+import { Category } from './category.entity';
 
 @Entity({ schema: 'merchant', name: 'merchant_aisle_category' })
 export class MerchantAisleCategory {
@@ -28,7 +28,7 @@ export class MerchantAisleCategory {
   @JoinColumn({ name: 'aisle_id', referencedColumnName: 'aisleId' })
   aisle: Aisle;
 
-  @ManyToOne(() => ProductCategory)
+  @ManyToOne(() => Category)
   @JoinColumn({ name: 'category_id', referencedColumnName: 'categoryId' })
-  category: ProductCategory;
+  category: Category;
 }

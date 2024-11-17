@@ -5,7 +5,7 @@ import { ConfigService } from '@nestjs/config';
 import { MerchantOwner } from './entity/merchant-owner.entity';
 import { Merchant } from './entity/merchant.entity';
 import { Aisle } from './entity/aisle.entity';
-import { ProductCategory } from './entity/product-category.entity';
+import { Category } from './entity/category.entity';
 import { MerchantAisleCategory } from './entity/category-aisle.entity';
 
 export const databaseProvider: Provider[] = [
@@ -19,7 +19,7 @@ export const databaseProvider: Provider[] = [
           MerchantOwner,
           Merchant,
           Aisle,
-          ProductCategory,
+          Category,
           MerchantAisleCategory,
         ],
       });

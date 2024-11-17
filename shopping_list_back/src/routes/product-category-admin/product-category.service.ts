@@ -5,7 +5,7 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { ProductCategory } from '../../data-base/entity/product-category.entity';
+import { Category } from '../../data-base/entity/category.entity';
 import { DatabaseDiTokens } from '../../data-base/DatabaseDiTokens';
 import { Repository } from 'typeorm';
 
@@ -15,10 +15,10 @@ export class ProductCategoryService {
 
   constructor(
     @Inject(DatabaseDiTokens.PRODUCT_CATEGORY_REPOSITORY)
-    private readonly productCategoryRepository: Repository<ProductCategory>,
-  ) {}
+    private readonly productCategoryRepository: Repository<Category>,
+  ) { }
 
-  async create(createProductCategoryDto: Partial<ProductCategory>) {
+  async create(createProductCategoryDto: Partial<Category>) {
     const productCategory = await this.productCategoryRepository.findOne({
       where: {
         categoryName: createProductCategoryDto.categoryName,
@@ -48,7 +48,7 @@ export class ProductCategoryService {
     });
   }
 
-  async update(updateProductCategoryDto: Partial<ProductCategory>) {
+  async update(updateProductCategoryDto: Partial<Category>) {
     const update = await this.productCategoryRepository.update(
       {
         categoryId: updateProductCategoryDto.categoryId,

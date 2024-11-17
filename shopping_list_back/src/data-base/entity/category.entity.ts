@@ -10,8 +10,8 @@ import {
 import { Merchant } from './merchant.entity';
 import { MerchantAisleCategory } from './category-aisle.entity';
 
-@Entity({ schema: 'merchant', name: 'product_category' })
-export class ProductCategory {
+@Entity({ schema: 'merchant', name: 'category' })
+export class Category {
   @PrimaryGeneratedColumn({ type: 'bigint', name: 'category_id' })
   categoryId: number;
 
